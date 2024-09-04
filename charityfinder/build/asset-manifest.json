@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1017f666.css",
+    "main.js": "/static/js/main.82297eea.js",
+    "static/js/453.068bd892.chunk.js": "/static/js/453.068bd892.chunk.js",
+    "static/media/CharityFinder.png": "/static/media/CharityFinder.3659fe45a846dfe5df21.png",
+    "index.html": "/index.html",
+    "main.1017f666.css.map": "/static/css/main.1017f666.css.map",
+    "main.82297eea.js.map": "/static/js/main.82297eea.js.map",
+    "453.068bd892.chunk.js.map": "/static/js/453.068bd892.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1017f666.css",
+    "static/js/main.82297eea.js"
+  ]
+}
