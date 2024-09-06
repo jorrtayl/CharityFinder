@@ -14,8 +14,108 @@
     margin: 20px 0;
 }
 
+/* Parent container to center the search bar */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Full width of the parent */
+    margin: 20px 0;
+}
+
+/* src/frontend/styles/Home.css */
+
+/* Light Mode */
+.home-container.light-mode {
+    background-color: #ffffff;
+    color: black; /* Default text color for light mode */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+.home-container.dark-mode {
+    background-color: #121212;
+    color: white; /* Text color for dark mode */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light Mode specific text */
+.light-mode-text {
+    color: white; /* Title will be white in light mode */
+}
+
+/* CharityFinder Title */
+.charityfinder-title {
+    margin-top: 20px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Toggle Switch */
+.toggle-container {
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 25px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 21px;
+    width: 21px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* Search Bar */
+.search-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
 .search-bar {
-    width: 50%;
+    width: 25%;
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 25px;
@@ -33,7 +133,7 @@
 .slideshow-container {
     position: relative;
     width: 80%;
-    height: 300px;
+    height: 400px;
     margin-top: 20px;
     overflow: hidden;
     display: flex;
@@ -68,16 +168,13 @@
 .slide-content h3 {
     margin: 0;
     font-size: 1.5rem;
-    color: #333;
 }
 
 .slide-content p {
     margin: 5px 0 0 0;
     font-size: 1rem;
-    color: #666;
 }
 
-/* Make the current slide visible */
 .slide.active {
     opacity: 1;
     visibility: visible;
