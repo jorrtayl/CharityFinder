@@ -179,3 +179,11 @@ input:checked + .slider:before {
     opacity: 1;
     visibility: visible;
 }
+
+/* Logo Styling */
+.charityfinder-logo {
+    width: 300px; /* Adjust the size of the logo as needed */
+    height: auto;
+    margin: 20px 0; /* Add some space around the logo */
+    display: block;
+}
