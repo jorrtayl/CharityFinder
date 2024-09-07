@@ -27,15 +27,15 @@
 
 /* Light Mode */
 .home-container.light-mode {
-    background-color: #ffffff;
+    background-color: #cbcbcb;
     color: black; /* Default text color for light mode */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Dark Mode */
 .home-container.dark-mode {
-    background-color: #121212;
-    color: white; /* Text color for dark mode */
+    background-color: #4e4e4e;
+    color: rgb(0, 0, 0); /* Text color for dark mode */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -132,13 +132,25 @@ input:checked + .slider:before {
 /* Slideshow */
 .slideshow-container {
     position: relative;
-    width: 80%;
+    width: 100%;
     height: 400px;
-    margin-top: 20px;
-    overflow: hidden;
+    background-color: #3498db; /* Blue background only between lines */
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.line {
+    width: 100%;
+    height: 2px;
+    background-color: black;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
 }
 
 .slide {
@@ -152,6 +164,117 @@ input:checked + .slider:before {
     transition: opacity 1s ease-in-out;
     opacity: 0;
     visibility: hidden;
+}
+
+.arrow {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.cards {
+    display: flex;
+    overflow: hidden;
+    width: 80%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.card {
+    width: 200px; /* Increased width */
+    height: 300px; /* Increased height */
+    background-color: #70aae8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+/* Image inside the card */
+.card img {
+    width: 100%; /* Take up full width of the card */
+    height: 150px; /* Set a consistent height */
+    object-fit: cover; /* Ensures the image fills the space without distortion */
+    border-radius: 10px 10px 0 0; /* Rounded corners on the top only */
+    object-position: center; /* Center the image for better visual fit */
+}
+
+
+.card h3 {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.card-front {
+    transform: rotateY(0deg);
+}
+
+/* Text on the card front */
+.card-front h3 {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    padding: 10px;
+    text-align: center;
+}
+
+.card-back p {
+    font-size: 0.85rem; /* Slightly reduced font size */
+    line-height: 1.1rem; /* Adjusted line height */
+    margin-bottom: 8px;
+}
+
+.flipped .card-front {
+    transform: rotateY(180deg);
+}
+
+.flipped .card-back {
+    transform: rotateY(360deg);
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.go-back, .visit-site {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+a .visit-site {
+    text-decoration: none;
 }
 
 .slide img {
@@ -182,8 +305,9 @@ input:checked + .slider:before {
 
 /* Logo Styling */
 .charityfinder-logo {
-    width: 300px; /* Adjust the size of the logo as needed */
+    width: 200px;
     height: auto;
-    margin: 20px 0; /* Add some space around the logo */
+    margin: 20px 0;
     display: block;
 }
+
