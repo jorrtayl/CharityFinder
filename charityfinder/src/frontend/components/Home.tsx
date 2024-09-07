@@ -1,6 +1,7 @@
 // src/frontend/components/Home.tsx
 import React, { useState, useEffect } from 'react';
 import '../styles/Home.css';
+import logo from '../../images/CharityFinder(test).png';
 import redCross from '../../images/red_cross.png';
 import doctorsWithoutBorders from '../../images/doctors_without_borders.png';
 import worldWildlifeFund from '../../images/world_wildlife_fund.png';
@@ -58,15 +59,15 @@ const Home: React.FC = () => {
                 </label>
                 <span>{isDarkMode ? 'Dark Mode' : 'Light Mode'}</span>
             </div>
-
-            {/* Title */}
-            <h1 className="charityfinder-title">CharityFinder</h1>
-
+    
+             {/* Logo */}
+             <img src={logo} alt="CharityFinder Logo" className="charityfinder-logo" />
+    
             {/* Search Bar */}
             <div className="search-container">
                 <input type="text" className="search-bar" placeholder="Search..." />
             </div>
-
+    
             {/* Slideshow */}
             <div className="slideshow-container">
                 {slides.map((slide, index) => (
