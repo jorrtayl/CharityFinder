@@ -5,6 +5,8 @@ import redCross from '../../images/red_cross.png';
 import doctorsWithoutBorders from '../../images/doctors_without_borders.png';
 import worldWildlifeFund from '../../images/world_wildlife_fund.png';
 
+import { searchByName } from '../../API/search';
+import { raw } from 'express';
 
 interface Slide {
     title: string;
@@ -33,6 +35,8 @@ const slides: Slide[] = [
 const Home: React.FC = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isDarkMode, setIsDarkMode] = useState(false);
+
+    searchByName("American Cancer Society").then((promise) => console.log(promise))
 
     useEffect(() => {
         const slideInterval = setInterval(() => {

@@ -64,24 +64,3 @@ export interface SearchByEINResponse {
     filings_without_data: [Filing],
 };
 
-export class SearchParameters {
-    q!: String;
-    ntee_id?: Tag;
-    constructor(q : String) {
-        if(q !== undefined) {
-            this.q = q;
-        }
-
-        this.ntee_id = undefined;
-    }
-
-    setQuery(q: String) {
-        this.q = q;
-    }
-
-    setTag(tag: Tag) {
-        this.ntee_id = tag;
-    }
-};
-
-export default SearchParameters;
