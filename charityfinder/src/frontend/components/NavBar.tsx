@@ -1,7 +1,7 @@
 // src/frontend/components/NavBar.tsx
 import React from 'react';
 import '../styles/NavBar.css';
-import logo from '../../images/CharityFinder.png';
+import logo from '../../images/CharityFinder(test).png';
 import { Link } from 'react-router-dom';
 
 const NavBar: React.FC = () => {
