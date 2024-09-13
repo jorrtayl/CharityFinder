@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const axios = require('axios');
 
 const ProPublicaURL = "https://projects.propublica.org/nonprofits/api/v2/";
 
@@ -12,8 +13,8 @@ app.use(bodyParser.json());
 
 app.get('/search/:name', (req, res) => {
   let name = req.params["name"]
-  fetch(`${ProPublicaURL}search.json?q=${name}`)
-    .then(response => response.json())
+  axios.get(`${ProPublicaURL}search.json?q=${name}`)
+    .then(response => response.data)
     .then(json => {
       console.log(json)
       res.send(json)
