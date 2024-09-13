@@ -5,9 +5,9 @@ import logo from '../images/CharityFinder(test).png';
 import redCross from '../images/red_cross.png';
 import doctorsWithoutBorders from '../images/doctors_without_borders.png';
 import worldWildlifeFund from '../images/world_wildlife_fund.png';
-import redCrossSlideshow from '../../images/slideshow/red_cross.png';
-import charity2 from '../../images/doctors_without_borders.png';  // Import other images
-import charity3 from '../../images/world_wildlife_fund.png';
+import redCrossSlideshow from '../images/slideshow/red_cross.png';
+import charity2 from '../images/doctors_without_borders.png';  // Import other images
+import charity3 from '../images/world_wildlife_fund.png';
 import NavBar from './NavBar'; // Import the NavBar
 import { Link } from 'react-router-dom';
 
