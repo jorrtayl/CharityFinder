@@ -1,313 +1,147 @@
-/* src/frontend/styles/Home.css */
-
-.home-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
+/* Light Gray Background and Black Text */
+body {
+    background-color: #f0f0f0;
+    color: #000;
+    font-family: Arial, sans-serif;
 }
 
-/* Search Bar */
-.search-container {
-    margin: 20px 0;
-}
-
-/* Parent container to center the search bar */
-.search-container {
+/* Logo Centered */
+.logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; /* Full width of the parent */
-    margin: 20px 0;
+    padding: 20px 0;
 }
 
-/* src/frontend/styles/Home.css */
-
-/* Light Mode */
-.home-container.light-mode {
-    background-color: #cbcbcb;
-    color: black; /* Default text color for light mode */
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Dark Mode */
-.home-container.dark-mode {
-    background-color: #4e4e4e;
-    color: rgb(0, 0, 0); /* Text color for dark mode */
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Light Mode specific text */
-.light-mode-text {
-    color: white; /* Title will be white in light mode */
-}
-
-/* CharityFinder Title */
-.charityfinder-title {
-    margin-top: 20px;
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* Toggle Switch */
-.toggle-container {
-    position: absolute;
-    top: 100px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    z-index: 100;
-}
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 25px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 25px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 21px;
-    width: 21px;
-    border-radius: 50%;
-    left: 4px;
-    bottom: 2px;
-    background-color: white;
-    transition: .4s;
-}
-
-input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:checked + .slider:before {
-    transform: translateX(24px);
-}
-
-/* Search Bar */
-.search-container {
-    margin: 20px 0;
-    display: flex;
-    justify-content: center;
-}
-
-.search-bar {
-    width: 25%;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 25px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    outline: none;
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.search-bar:focus {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Slideshow */
-.slideshow-container {
-    position: relative;
-    width: 100%;
-    height: 400px;
-    background-color: #3498db; /* Blue background only between lines */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.line {
-    width: 100%;
-    height: 2px;
-    background-color: black;
-}
-
-.card-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 80%;
-}
-
-.slide {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    transition: opacity 1s ease-in-out;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.arrow {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-.cards {
-    display: flex;
-    overflow: hidden;
-    width: 80%;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.card {
-    width: 200px; /* Increased width */
-    height: 300px; /* Increased height */
-    background-color: #70aae8;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 10px;
-    position: relative;
-    perspective: 1000px;
-    cursor: pointer;
-}
-
-/* Image inside the card */
-.card img {
-    width: 100%; /* Take up full width of the card */
-    height: 150px; /* Set a consistent height */
-    object-fit: cover; /* Ensures the image fills the space without distortion */
-    border-radius: 10px 10px 0 0; /* Rounded corners on the top only */
-    object-position: center; /* Center the image for better visual fit */
-}
-
-
-.card h3 {
-    font-size: 1rem;
-    margin-top: 10px;
-}
-
-.card-front, .card-back {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    backface-visibility: hidden;
-    transition: transform 0.6s;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-}
-
-.card-front {
-    transform: rotateY(0deg);
-}
-
-/* Text on the card front */
-.card-front h3 {
-    font-size: 1rem;
-    margin-top: 10px;
-}
-
-.card-back {
-    transform: rotateY(180deg);
-    padding: 10px;
-    text-align: center;
-}
-
-.card-back p {
-    font-size: 0.85rem; /* Slightly reduced font size */
-    line-height: 1.1rem; /* Adjusted line height */
-    margin-bottom: 8px;
-}
-
-.flipped .card-front {
-    transform: rotateY(180deg);
-}
-
-.flipped .card-back {
-    transform: rotateY(360deg);
-}
-
-.card-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    width: 100%;
-}
-
-.go-back, .visit-site {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 5px;
-}
-
-a .visit-site {
-    text-decoration: none;
-}
-
-.slide img {
-    max-width: 100%;
-    max-height: 70%;
-    border-radius: 10px;
-}
-
-.slide-content {
-    margin-top: 10px;
-    text-align: center;
-}
-
-.slide-content h3 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.slide-content p {
-    margin: 5px 0 0 0;
-    font-size: 1rem;
-}
-
-.slide.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Logo Styling */
 .charityfinder-logo {
     width: 200px;
     height: auto;
-    margin: 20px 0;
-    display: block;
 }
 
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar-links li a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.2rem;
+}
+
+.navbar-links li a:hover {
+    color: #3498db;
+}
+
+/* Search Bar Styling */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.search-bar {
+    width: 50%;
+    padding: 15px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 1.2rem;
+    outline: none;
+}
+
+/* Slideshow Container */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px; /* Cap the width */
+    height: 400px; /* Fixed height for the slideshow */
+    margin: 20px auto; /* Center the slideshow */
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Slideshow Images */
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure no distortion by cropping the image to fit */
+    object-position: center; /* Center the image */
+    transform: scale(1); /* Remove zoom if image quality is sufficient */
+    border-radius: 15px;
+}
+
+/* Optional: Hover Effect to Add Quality Feel */
+.slide img:hover {
+    filter: brightness(1.05) contrast(1.1);
+    transition: filter 0.3s ease;
+}
+
+.slide-content {
+    position: absolute;
+    color: black;
+    text-align: center;
+    width: 100%;
+    bottom: 20px;
+}
+
+/* Arrow Buttons */
+.arrow {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 2rem;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+}
+
+.arrow.left {
+    left: 20px;
+}
+
+.arrow.right {
+    right: 20px;
+}
+
+/* Category Section */
+.category-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 40px 0;
+}
+
+.category-card {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+/* Category Card Images */
+.category-card img {
+    width: 100%; /* Full width */
+    height: 150px; /* Fixed height */
+    object-fit: cover; /* Keep aspect ratio, no distortion */
+    object-position: center; /* Center the image */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.category-card h3 {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
