@@ -16,15 +16,21 @@ app.get('/search/:name', (req, res) => {
   axios.get(`${ProPublicaURL}search.json?q=${name}`)
     .then(response => response.data)
     .then(json => {
-      console.log(json)
       res.send(json)
     })
 });
 
-// app.get('organization/:ein', (req, res) => {
-//   let ein = req.params["ein"]
-//   res.send(ein)
-// })
+app.get('/organization/:ein', (req, res) => {
+  let ein = req.params["ein"]
+  axios.get(`${ProPublicaURL}organizations/${ein}.json`)
+    .then(res => res.data)
+    .then(json => {
+      res.send(json)
+    })
+    .catch(err => {
+      res.send("{}")
+    })
+})
 /*
 Last Precedence at the moment
 
