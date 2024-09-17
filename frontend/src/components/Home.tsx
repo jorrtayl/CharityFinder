@@ -9,7 +9,7 @@ import charity3 from '../images/world_wildlife_fund.png';
 import NavBar from './NavBar'; // Import the NavBar
 import { Link } from 'react-router-dom';
 
-import { searchByName } from '../API/search';
+import { financialData, searchByName } from '../API/search';
 
 const Home: React.FC = () => {
     const slides = [
@@ -26,7 +26,8 @@ const Home: React.FC = () => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
 
-    searchByName("American Cancer Society").then((json) => console.log(json))
+    searchByName("propublica").then((arr) => console.log("Result: ", arr))
+    financialData(142007220).then(filing => console.log("Latest Filing: ", filing));
 
     const handleNextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);

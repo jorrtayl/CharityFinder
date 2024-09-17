@@ -39,5 +39,5 @@ app.get('keysearch', (req, res) => {
 })*/
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}\nAvailable Routes:\n\t/search/:name\n\t/organization/:ein`);
 });
