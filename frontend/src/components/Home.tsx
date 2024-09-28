@@ -1,5 +1,5 @@
 // src/frontend/components/Home.tsx
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import '../styles/Home.css';
 import logo from '../images/CharityFinder(test).png';
 import redCross from '../images/red_cross.png';
@@ -26,10 +26,11 @@ const Home: React.FC = () => {
     ];
 
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [searchString, setSearchString] = useState(0);
 
-    searchByName("propublica").then((arr) => console.log("Result: ", arr))
-    financialData(142007220).then(filing => console.log("Latest Filing: ", filing));
-    keywordSearch(Tag.Culture, 10).then(arr => console.log("Keyword Search Result: ", arr));
+    // searchByName("propublica").then((arr) => console.log("Result: ", arr))
+    // financialData(142007220).then(filing => console.log("Latest Filing: ", filing));
+    // keywordSearch(Tag.Culture, 10).then(arr => console.log("Keyword Search Result: ", arr));
 
     const handleNextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
@@ -38,6 +39,19 @@ const Home: React.FC = () => {
     const handlePreviousSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
     };
+
+    // Event handlers for Search Bar
+
+    const handleInputChange = (event: any) => {
+        setSearchString(event.target.value)
+    }
+
+    const handleKeyDown = (event: any) => {
+        if (event.key === "Enter") {
+            searchByName(`${searchString}`)
+                .then((arr) => console.log("Result: ", arr))   
+        }
+    }
 
     return (
         <div className="home-container">
@@ -51,7 +65,11 @@ const Home: React.FC = () => {
 
             {/* Search Bar */}
             <div className="search-container">
-                <input type="text" className="search-bar" placeholder="Search for charities..." />
+                <input type="text"
+                className="search-bar"
+                placeholder="Search for charities..."
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}/>
             </div>
 
             {/* Slideshow */}
