@@ -6,7 +6,7 @@ const axios = require('axios');
 const ProPublicaURL = "https://projects.propublica.org/nonprofits/api/v2/";
 
 const app = express();
-const PORT = process.env.PORT || 8123;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -31,13 +31,18 @@ app.get('/organization/:ein', (req, res) => {
       res.send("{}")
     })
 })
-/*
-Last Precedence at the moment
 
-app.get('keysearch', (req, res) => {
-  
-})*/
+// Last Precedence at the moment
+
+app.get('/keysearch/:tag', (req, res) => {
+  let tag = req.params["tag"]
+  axios.get(`${ProPublicaURL}search.json?ntee%5Bid%5D=${tag}`)
+    .then(response => response.data)
+    .then(json => {
+      res.send(json)
+    })
+})
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}\nAvailable Routes:\n\t/search/:name\n\t/organization/:ein`);
+  console.log(`Server is running on port ${PORT}\nAvailable Routes:\n\t/search/:name\n\t/organization/:ein\n\t/keysearch/:tag`);
 });

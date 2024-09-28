@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { Organization, Filing} from './types';
-const backend_uri: String = "http://localhost:8123"
+import { Organization, Filing, Tag} from './types';
+const backend_uri: String = "http://localhost:3000"
 
 export function searchByName(name: String): Promise<Organization[]> {
     return axios.get(`${backend_uri}/search/${name}`)
@@ -45,6 +45,27 @@ export function financialData(ein: Number): Promise<Filing> {
             }
             return ein_filing
         }).then(filing => filing)
+}
+
+export function keywordSearch(tag: Tag, amount: number): Promise<Organization[]> {
+    return axios.get(`${backend_uri}/keysearch/${tag}`)
+        .then(res => res.data)
+        .then(json => {
+            var orgs: Array<Organization> = new Array<Organization>();
+            if(amount > 25) {
+                amount = 25
+            }
+            if(amount < 0) {
+                amount = 25
+            }
+            for(let i = 0; i < amount; i++) {
+                let rawOrg = json["organizations"][i];
+                let org = {} as Organization;
+                orgJSON_to_orgOBJ(rawOrg, org);
+                orgs.push(org);
+            }
+            return orgs
+        }).then(orgs => orgs)
 }
 
 function orgJSON_to_orgOBJ(src: any, dest: Organization) {

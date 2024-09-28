@@ -9,7 +9,8 @@ import charity3 from '../images/world_wildlife_fund.png';
 import NavBar from './NavBar'; // Import the NavBar
 import { Link } from 'react-router-dom';
 
-import { financialData, searchByName } from '../API/search';
+import { financialData, keywordSearch, searchByName } from '../API/search';
+import {Tag} from '../API/types';
 
 const Home: React.FC = () => {
     const slides = [
@@ -28,6 +29,7 @@ const Home: React.FC = () => {
 
     searchByName("propublica").then((arr) => console.log("Result: ", arr))
     financialData(142007220).then(filing => console.log("Latest Filing: ", filing));
+    keywordSearch(Tag.Culture, 10).then(arr => console.log("Keyword Search Result: ", arr));
 
     const handleNextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
