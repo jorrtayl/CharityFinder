@@ -1,12 +1,12 @@
-// src/frontend/components/Home.tsx
 import React, { useState } from 'react';
 import logo from '../images/CharityFinder(test).png';
+import redCross from '../images/red_cross.png'; // Merged import
 import redCrossSlideshow from '../images/slideshow/red_cross.png';
 import charity2 from '../images/doctors_without_borders.png';
 import charity3 from '../images/world_wildlife_fund.png';
 import NavBar from './NavBar'; // Import the NavBar
 import { Link } from 'react-router-dom';
-
+import { searchByName } from '../API/search'; // Merged import
 const Home: React.FC = () => {
     const slides = [
         { imageUrl: redCrossSlideshow, title: 'Red Cross' },
