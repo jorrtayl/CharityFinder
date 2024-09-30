@@ -1,117 +1,26 @@
 // src/frontend/components/Home.tsx
 import React, { useState } from 'react';
-import '../styles/Home.css';
 import logo from '../images/CharityFinder(test).png';
-import redCross from '../images/red_cross.png';
-import doctorsWithoutBorders from '../images/doctors_without_borders.png';
-import worldWildlifeFund from '../images/world_wildlife_fund.png';
 import redCrossSlideshow from '../images/slideshow/red_cross.png';
-import charity2 from '../images/doctors_without_borders.png';  // Import other images
+import charity2 from '../images/doctors_without_borders.png';
 import charity3 from '../images/world_wildlife_fund.png';
 import NavBar from './NavBar'; // Import the NavBar
 import { Link } from 'react-router-dom';
 
-import { searchByName } from '../API/search';
-import { raw } from 'express';
-
-interface Slide {
-    title: string;
-    description: string;
-    imageUrl: string;
-    websiteUrl: string;
-}
-
-const slides: Slide[] = [
-    {
-        title: 'American Red Cross',
-        description: 'Provides emergency assistance, disaster relief, and education in the U.S. and internationally.',
-        imageUrl: redCross,
-        websiteUrl: 'https://www.redcross.org'
-    },
-    {
-        title: 'Doctors Without Borders',
-        description: 'Delivers medical care to people affected by conflict, epidemics, and disasters worldwide.',
-        imageUrl: doctorsWithoutBorders,
-        websiteUrl: 'https://www.doctorswithoutborders.org/'
-    },
-    {
-        title: 'World Wildlife Fund',
-        description: 'Works to conserve nature and reduce the most pressing threats to the diversity of life on Earth.',
-        imageUrl: worldWildlifeFund,
-        websiteUrl: 'https://www.worldwildlife.org/'
-    },
-    {
-        title: 'Charity 4',
-        description: 'Helping communities grow.',
-        imageUrl: '/images/charity4.jpg',
-        websiteUrl: 'https://example.com/charity4'
-    },
-    {
-        title: 'Charity 5',
-        description: 'Providing shelter for those in need.',
-        imageUrl: '/images/charity5.jpg',
-        websiteUrl: 'https://example.com/charity5'
-    },
-    {
-        title: 'Charity 6',
-        description: 'Supporting mental health initiatives.',
-        imageUrl: '/images/charity6.jpg',
-        websiteUrl: 'https://example.com/charity6'
-    },
-    {
-        title: 'Charity 7',
-        description: 'Providing shelter for those in need.',
-        imageUrl: '/images/charity5.jpg',
-        websiteUrl: 'https://example.com/charity7'
-    },
-    {
-        title: 'Charity 8',
-        description: 'Supporting mental health initiatives.',
-        imageUrl: '/images/charity6.jpg',
-        websiteUrl: 'https://example.com/charity8'
-    },
-    {
-        title: 'Charity 9',
-        description: 'Providing shelter for those in need.',
-        imageUrl: '/images/charity5.jpg',
-        websiteUrl: 'https://example.com/charity9'
-    },
-    {
-        title: 'Charity 10',
-        description: 'Supporting mental health initiatives.',
-        imageUrl: '/images/charity6.jpg',
-        websiteUrl: 'https://example.com/charity10'
-    },
-    {
-        title: 'Charity 11',
-        description: 'Providing shelter for those in need.',
-        imageUrl: '/images/charity5.jpg',
-        websiteUrl: 'https://example.com/charity11'
-    },
-    {
-        title: 'Charity 12',
-        description: 'Supporting mental health initiatives.',
-        imageUrl: '/images/charity6.jpg',
-        websiteUrl: 'https://example.com/charity12'
-    }
-];
-
 const Home: React.FC = () => {
     const slides = [
-        { title: 'Charity 1', imageUrl: redCrossSlideshow, description: 'Help Children in Need' },
-        { title: 'Charity 2', imageUrl: charity2, description: 'Support Wildlife Conservation' },
-        { title: 'Charity 3', imageUrl: charity3, description: 'Mental Health Support' },
+        { imageUrl: redCrossSlideshow, title: 'Red Cross' },
+        { imageUrl: charity2, title: 'Charity 2' },
+        { imageUrl: charity3, title: 'Charity 3' },
     ];
 
     const categories = [
-        { name: "Children's Charities", imageUrl: redCross, link: '/children' },
+        { name: "Children's Charities", imageUrl: redCrossSlideshow, link: '/children' },
         { name: 'Wildlife Charities', imageUrl: charity2, link: '/wildlife' },
         { name: 'Health Charities', imageUrl: charity3, link: '/health' },
     ];
 
     const [currentSlide, setCurrentSlide] = useState(0);
-
-    searchByName("American Cancer Society").then((json) => console.log(json))
 
     const handleNextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
@@ -122,44 +31,68 @@ const Home: React.FC = () => {
     };
 
     return (
-        <div className="home-container">
+        <div className="flex flex-col items-center bg-gray-100 min-h-screen">
             {/* Logo */}
-            <div className="logo-container">
-                <img src={logo} alt="CharityFinder Logo" className="charityfinder-logo" />
+            <div className="py-5">
+                <img src={logo} alt="CharityFinder Logo" className="w-48 mx-auto" /> {/* Increased the size */}
             </div>
 
-            {/* NavBar directly under the logo */}
+            {/* NavBar */}
             <NavBar />
 
             {/* Search Bar */}
-            <div className="search-container">
-                <input type="text" className="search-bar" placeholder="Search for charities..." />
+            <div className="mt-4 mb-8 w-2/3">
+                <input
+                    type="text"
+                    className="w-full p-4 rounded-full border border-gray-300"
+                    placeholder="Search for charities..."
+                />
             </div>
 
             {/* Slideshow */}
-            <div className="slideshow-container">
-                <button className="arrow left" onClick={handlePreviousSlide}>{"<"}</button>
-                <div className="slide">
-                    <img src={slides[currentSlide].imageUrl} alt={slides[currentSlide].title} />
-                    <div className="slide-content">
-                        <h2>{slides[currentSlide].title}</h2>
-                        <p>{slides[currentSlide].description}</p>
-                    </div>
+            <div className="relative w-full max-w-4xl h-80 mb-8 bg-gray-200 rounded-lg overflow-hidden shadow-md">
+                {/* Left arrow with hover effect */}
+                <div
+                    className="absolute inset-y-0 left-0 w-1/8 flex items-center justify-center cursor-pointer hover:bg-white hover:bg-opacity-50 transition-all"
+                    onClick={handlePreviousSlide}
+                >
+                    <button className="text-4xl text-gray-700 font-bold">{"<"}</button>
                 </div>
-                <button className="arrow right" onClick={handleNextSlide}>{">"}</button>
+                
+                {/* Image */}
+                <div className="h-full w-full flex justify-center items-center">
+                    <img
+                        src={slides[currentSlide].imageUrl}
+                        alt={slides[currentSlide].title}
+                        className="object-cover h-full w-full rounded-lg"
+                    />
+                </div>
+                
+                {/* Right arrow with hover effect */}
+                <div
+                    className="absolute inset-y-0 right-0 w-1/8 flex items-center justify-center cursor-pointer hover:bg-white hover:bg-opacity-50 transition-all"
+                    onClick={handleNextSlide}
+                >
+                    <button className="text-4xl text-gray-700 font-bold">{">"}</button>
+                </div>
             </div>
 
             {/* Categories Section */}
-            <div className="category-container">
+            <div className="flex justify-center items-end space-x-8 mb-8">
                 {categories.map((category, index) => (
-                    <div className="category-card" key={index}>
+                    <div className="text-center" key={index}>
                         <Link to={category.link}>
-                            <img src={category.imageUrl} alt={category.name} />
-                            <h3>{category.name}</h3>
+                            <img src={category.imageUrl} alt={category.name} className="w-full h-32 object-cover rounded-lg mb-4" />
+                            <h3 className="text-lg font-semibold">{category.name}</h3>
                         </Link>
                     </div>
                 ))}
             </div>
+
+            {/* Footer */}
+            <footer className="w-full bg-gray-800 text-white p-4 text-center">
+                <p>© 2024 CharityFinder</p>
+            </footer>
         </div>
     );
 };
