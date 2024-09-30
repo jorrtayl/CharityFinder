@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import logo from '../images/CharityFinder(test).png';
-import redCross from '../images/red_cross.png'; // Merged import
+import redCross from '../images/red_cross.png'; 
 import redCrossSlideshow from '../images/slideshow/red_cross.png';
-import charity2 from '../images/doctors_without_borders.png';
-import charity3 from '../images/world_wildlife_fund.png';
-import NavBar from './NavBar'; // Import the NavBar
+import doctorsWithoutBorders from '../images/slideshow/doctors_without_borders.png'
+import worldWildlifeFund from '../images/slideshow/world_wildlife_fund.png'
+import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
-import { searchByName } from '../API/search'; // Merged import
+import { searchByName } from '../API/search'; 
+
 const Home: React.FC = () => {
     const slides = [
         { imageUrl: redCrossSlideshow, title: 'Red Cross' },
-        { imageUrl: charity2, title: 'Charity 2' },
-        { imageUrl: charity3, title: 'Charity 3' },
+        { imageUrl: doctorsWithoutBorders, title: 'Doctors Without Borders' },
+        { imageUrl: worldWildlifeFund, title: 'World Wildlife Fund' },
     ];
 
     const categories = [
         { name: "Children's Charities", imageUrl: redCrossSlideshow, link: '/children' },
-        { name: 'Wildlife Charities', imageUrl: charity2, link: '/wildlife' },
-        { name: 'Health Charities', imageUrl: charity3, link: '/health' },
+        { name: 'Wildlife Charities', imageUrl: doctorsWithoutBorders, link: '/wildlife' },
+        { name: 'Health Charities', imageUrl: worldWildlifeFund, link: '/health' },
     ];
 
     const [currentSlide, setCurrentSlide] = useState(0);
