@@ -6,7 +6,9 @@ import doctorsWithoutBorders from '../images/slideshow/doctors_without_borders.p
 import worldWildlifeFund from '../images/slideshow/world_wildlife_fund.png'
 import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
-import { searchByName } from '../API/search'; 
+
+import { financialData, keywordSearch, searchByName } from '../API/search';
+import {Tag} from '../API/types';
 
 const Home: React.FC = () => {
     const slides = [
@@ -22,6 +24,11 @@ const Home: React.FC = () => {
     ];
 
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [searchString, setSearchString] = useState(0);
+
+    // searchByName("propublica").then((arr) => console.log("Result: ", arr))
+    // financialData(142007220).then(filing => console.log("Latest Filing: ", filing));
+    // keywordSearch(Tag.Culture, 10).then(arr => console.log("Keyword Search Result: ", arr));
 
     const handleNextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
@@ -30,6 +37,19 @@ const Home: React.FC = () => {
     const handlePreviousSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
     };
+
+    // Event handlers for Search Bar
+
+    const handleInputChange = (event: any) => {
+        setSearchString(event.target.value)
+    }
+
+    const handleKeyDown = (event: any) => {
+        if (event.key === "Enter") {
+            searchByName(`${searchString}`)
+                .then((arr) => console.log("Result: ", arr))   
+        }
+    }
 
     return (
         <div className="flex flex-col items-center bg-gray-100 min-h-screen">
@@ -47,6 +67,8 @@ const Home: React.FC = () => {
                     type="text"
                     className="w-full p-4 rounded-full border border-gray-300"
                     placeholder="Search for charities..."
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
                 />
             </div>
 
