@@ -6,6 +6,9 @@ export function searchByName(name: String): Promise<Organization[]> {
     return axios.get(`${backend_uri}/search/${name}`)
         .then(res => res.data)
         .then(json => {
+            if(JSON.stringify(json) == '{}') {
+                return json
+            }
             var orgs: Array<Organization> = new Array<Organization>();
             const org_count = json["total_results"];
             if(org_count <= 0) {
@@ -34,6 +37,9 @@ export function financialData(ein: Number): Promise<Filing> {
     return axios.get(`${backend_uri}/organization/${ein}`)
         .then(res => res.data)
         .then(json => {
+            if(JSON.stringify(json) == '{}') {
+                return json
+            }
             var ein_filing: Filing = {} as Filing;
             let org = json["organization"];
             if(org === null) {

@@ -67,6 +67,8 @@ const Home: React.FC = () => {
                     type="text"
                     className="w-full p-4 rounded-full border border-gray-300"
                     placeholder="Search for charities..."
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
                 />
             </div>
 

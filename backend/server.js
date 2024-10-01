@@ -18,6 +18,9 @@ app.get('/search/:name', (req, res) => {
     .then(json => {
       res.send(json)
     })
+    .catch(err => {
+      res.send("{}")
+    })
 });
 
 app.get('/organization/:ein', (req, res) => {
