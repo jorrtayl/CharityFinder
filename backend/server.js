@@ -19,6 +19,7 @@ app.get('/search/:name', (req, res) => {
       res.send(json)
     })
     .catch(err => {
+      console.error(err)
       res.send("{}")
     })
 });
@@ -31,6 +32,7 @@ app.get('/organization/:ein', (req, res) => {
       res.send(json)
     })
     .catch(err => {
+      console.error(err)
       res.send("{}")
     })
 })
@@ -43,6 +45,10 @@ app.get('/keysearch/:tag', (req, res) => {
     .then(response => response.data)
     .then(json => {
       res.send(json)
+    })
+    .catch(err => {
+      console.error(err)
+      res.send("{}")
     })
 })
 
