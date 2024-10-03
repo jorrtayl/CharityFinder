@@ -1,4 +1,3 @@
-// src/frontend/components/Home.tsx
 import React, { useState, useEffect } from 'react';
 import logo from '../images/CharityFinder(test).png';
 import redCrossSlideshow from '../images/slideshow/red_cross.png';
