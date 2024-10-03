@@ -28,7 +28,8 @@ const Home: React.FC = () => {
 
     // searchByName("propublica").then((arr) => console.log("Result: ", arr))
     // financialData(142007220).then(filing => console.log("Latest Filing: ", filing));
-    // keywordSearch(Tag.Culture, 10).then(arr => console.log("Keyword Search Result: ", arr));
+    // keywordSearch(Tag.Culture, 10)
+    //    .then(arr => console.log("Keyword Search Result: ", arr));
 
     const handleNextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
