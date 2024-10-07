@@ -1,10 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../images/CharityFinder(test).png'; // Adjust the path if needed
 
-const NavBar: React.FC = () => {
+const Header: React.FC = () => {
     return (
-        <nav className="w-full bg-white border-t border-b border-black">
-            <div className="container mx-auto">
+        <div className="w-full flex flex-col items-center bg-gray-100">
+            {/* Logo */}
+            <div className="py-5">
+                <img src={logo} alt="CharityFinder Logo" className="w-60 h-auto mx-auto" /> {/* Increased logo size */}
+            </div>
+
+            {/* NavBar */}
+            <nav className="w-full bg-white border-t border-b border-black">
                 <ul className="flex justify-center space-x-8 py-4">
                     <li>
                         <Link to="/" className="text-lg text-black hover:text-blue-500">
@@ -17,9 +24,9 @@ const NavBar: React.FC = () => {
                         </Link>
                     </li>
                 </ul>
-            </div>
-        </nav>
+            </nav>
+        </div>
     );
 };
 
-export default NavBar;
+export default Header;
