@@ -1,12 +1,8 @@
-// src/frontend/components/Home.tsx
 import React, { useState, useEffect } from 'react';
-import logo from '../images/CharityFinder(test).png';
 import redCrossSlideshow from '../images/slideshow/red_cross.png';
 import doctorsWithoutBorders from '../images/slideshow/doctors_without_borders.png';
 import worldWildlifeFund from '../images/slideshow/world_wildlife_fund.png';
-import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
-import axios from 'axios'; 
 
 const Home: React.FC = () => {
     const slides = [
@@ -22,9 +18,14 @@ const Home: React.FC = () => {
     ];
 
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+        }, 5000);
+
+        return () => clearInterval(timer);
+    }, [slides.length]);
 
     const handleNextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
@@ -34,64 +35,15 @@ const Home: React.FC = () => {
         setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
     };
 
-    useEffect(() => {
-        if (searchTerm) {
-            setLoading(true);
-            const delayDebounceFn = setTimeout(() => {
-                axios.get(`http://localhost:8123/search/${searchTerm}`)
-                    .then((response) => {
-                        setSearchResults(response.data.organizations || []);
-                        setLoading(false);
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching search results:', error);
-                        setLoading(false);
-                    });
-            }, 300); 
-            
-            return () => clearTimeout(delayDebounceFn);
-        } else {
-            setSearchResults([]);
-        }
-    }, [searchTerm]);
-
     return (
         <div className="flex flex-col items-center bg-gray-100 min-h-screen">
-            {/* Logo */}
-            <div className="py-5">
-                <img src={logo} alt="CharityFinder Logo" className="w-48 mx-auto" />
-            </div>
-
-            {/* NavBar */}
-            <NavBar />
-
             {/* Search Bar */}
-            <div className="mt-4 mb-8 w-2/3 relative">
+            <div className="mt-4 mb-8 w-2/3">
                 <input
                     type="text"
                     className="w-full p-4 rounded-full border border-gray-300"
                     placeholder="Search for charities..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
-
-                {searchResults.length > 0 && (
-                    <div className="absolute w-full bg-white border border-gray-300 mt-1 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
-                        {loading ? (
-                            <div className="p-4">Loading...</div>
-                        ) : (
-                            searchResults.map((result: any, index) => (
-                                <Link
-                                    to={`/charity/${result.ein}`}
-                                    key={index}
-                                    className="block px-4 py-2 hover:bg-gray-200"
-                                >
-                                    {result.name}
-                                </Link>
-                            ))
-                        )}
-                    </div>
-                )}
             </div>
 
             {/* Slideshow */}
@@ -102,15 +54,15 @@ const Home: React.FC = () => {
                 >
                     <button className="text-4xl text-gray-700 font-bold">{"<"}</button>
                 </div>
-                
+
                 <div className="h-full w-full flex justify-center items-center">
                     <img
                         src={slides[currentSlide].imageUrl}
                         alt={slides[currentSlide].title}
-                        className="h-full w-full object-cover object-center rounded-lg"
+                        className="object-cover h-full w-full rounded-lg"
                     />
                 </div>
-                
+
                 <div
                     className="absolute inset-y-0 right-0 w-1/8 flex items-center justify-center cursor-pointer hover:bg-white hover:bg-opacity-50 transition-all"
                     onClick={handleNextSlide}
@@ -120,7 +72,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Categories Section */}
-            <div className="flex justify-center items-end space-x-8 mb-8">
+            <div className="grid grid-cols-3 gap-4 mb-8">
                 {categories.map((category, index) => (
                     <div className="text-center" key={index}>
                         <Link to={category.link}>
@@ -132,7 +84,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Footer */}
-            <footer className="w-full bg-gray-800 text-white p-4 text-center">
+            <footer className="w-full bg-gray-800 text-white p-4 text-center mt-auto">
                 <p>© 2024 CharityFinder</p>
             </footer>
         </div>
