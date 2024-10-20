@@ -1,4 +1,6 @@
+// src/frontend/components/About.tsx
 import React from 'react';
+import Header from './Header'; // Ensure this path is correct
 import jordanImage from '../images/team/jordan.png';
 import zachImage from '../images/team/zach.png';
 import danielImage from '../images/team/daniel.png';
@@ -16,24 +18,26 @@ const About: React.FC = () => {
             name: 'Zach Coomer',
             role: 'Database Developer',
             image: zachImage,
-            description: 'Zach specializes in backend development, ensuring the smooth integration of APIs and database systems.'
+            description: 'Zach specializes in backend development, ensuring smooth integration of APIs and databases.'
         },
         {
             name: 'Daniel Cunningham',
             role: 'Backend Developer',
             image: danielImage,
-            description: 'Daniel works on the backend, ensuring that the server-side code runs smoothly and efficiently.'
+            description: 'Daniel works on frontend UI, ensuring a user-friendly interface and responsive design.'
         },
         {
             name: 'Jace Riley',
             role: 'Mobile App Developer',
             image: jaceImage,
-            description: 'Jace is responsible for developing the mobile app and making sure it integrates well with the web version.'
+            description: 'Jace is responsible for mobile aspects of CharityFinder, including UX and design elements.'
         }
     ];
 
     return (
         <div className="flex flex-col items-center bg-gray-100 min-h-screen">
+            <Header />
+
             <h1 className="text-3xl font-bold mt-8">Meet the Team</h1>
 
             {teamMembers.map((member, index) => (
@@ -47,8 +51,7 @@ const About: React.FC = () => {
                 </div>
             ))}
 
-            {/* Footer */}
-            <footer className="w-full bg-gray-800 text-white p-4 text-center">
+            <footer className="w-full bg-gray-800 text-white p-4 text-center mt-auto">
                 <p>© 2024 CharityFinder</p>
             </footer>
         </div>
