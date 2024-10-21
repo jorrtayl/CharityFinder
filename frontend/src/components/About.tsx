@@ -12,19 +12,19 @@ const About: React.FC = () => {
             name: 'Jordan Taylor',
             role: 'Frontend Developer',
             image: jordanImage,
-            description: 'Jordan is the lead developer for CharityFinder, overseeing the project’s vision and direction.'
+            description: 'Jordan is the frontend developer and team coordinator. Making sure the interface is easy-to-use and looks appealing.'
         },
         {
             name: 'Zach Coomer',
             role: 'Database Developer',
             image: zachImage,
-            description: 'Zach specializes in backend development, ensuring smooth integration of APIs and databases.'
+            description: 'Zach specializes in the database, storing valuable data.'
         },
         {
             name: 'Daniel Cunningham',
             role: 'Backend Developer',
             image: danielImage,
-            description: 'Daniel works on frontend UI, ensuring a user-friendly interface and responsive design.'
+            description: 'Daniel works on the backend, ensuring API calls are synced to the frontend. Additionally, ties the database in to respond with the frontend.'
         },
         {
             name: 'Jace Riley',
