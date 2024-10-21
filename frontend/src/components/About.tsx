@@ -42,7 +42,7 @@ const About: React.FC = () => {
 
             {teamMembers.map((member, index) => (
                 <div className={`flex items-center my-8 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`} key={index}>
-                    <img src={member.image} alt={member.name} className="w-48 h-48 rounded-full mx-8" />
+                    <img src={member.image} alt={member.name} className="w-48 aspect-square rounded-full mx-8 object-cover" />
                     <div className="text-center">
                         <h2 className="text-2xl font-bold">{member.name}</h2>
                         <h3 className="text-lg text-gray-600">{member.role}</h3>
