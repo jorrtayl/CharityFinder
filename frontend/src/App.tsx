@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
-import CharityDetail from './components/CharityDetail';
+import CharityDetails from './components/CharityDetails';
 import CategoryPage from './components/CategoryPage';
 
 const App: React.FC = () => {
@@ -13,7 +13,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/charity/:id" element={<CharityDetail />} />
+                    <Route path="/charity/:id" element={<CharityDetails />} />
                     <Route path="/category/:name" element={<CategoryPage />} />
                 </Routes>
             </div>
