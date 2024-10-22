@@ -1,4 +1,3 @@
-// src/frontend/components/Home.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -20,9 +19,12 @@ const Home: React.FC = () => {
         { name: 'Health Charities', imageUrl: worldWildlifeFund, link: '/category/health' },
     ];
 
+    const tags = ['Children', 'Health', 'Education', 'Environment', 'Disaster Relief'];
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<any[]>([]);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,60 +35,101 @@ const Home: React.FC = () => {
         return () => clearInterval(timer);
     }, [slides.length]);
 
-    const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value;
         setSearchQuery(query);
-
-        // Only search if the query has 2 or more characters without needing a space
-        if (query.trim().length >= 2) {
-            try {
-                const response = await axios.get(`http://localhost:3000/search/${query}`);
-                if (response.data.organizations) {
-                    setSearchResults(response.data.organizations);
-                } else {
-                    setSearchResults([]); // Set empty if no results
-                }
-            } catch (error) {
-                console.error('Error fetching search results:', error);
-                setSearchResults([]); // Clear results on error
-            }
+    
+        const tagString = selectedTags.join(',');
+        if (query.length >= 1) {
+            axios.get(`http://localhost:3000/search/${query}`, { params: { tags: tagString } })
+                .then(response => {
+                    setSearchResults(response.data.organizations || []);
+                })
+                .catch(error => console.error('Error fetching search results:', error));
         } else {
-            setSearchResults([]); // Clear search results if query is too short
+            setSearchResults([]);
+        }
+    };
+    
+    const handleTagToggle = (tag: string) => {
+        const updatedTags = selectedTags.includes(tag)
+            ? selectedTags.filter((t) => t !== tag)
+            : [...selectedTags, tag];
+        setSelectedTags(updatedTags);
+        
+        // If there is an existing search query, refetch based on tags
+        if (searchQuery.length >= 1) {
+            axios.get(`http://localhost:3000/search/${searchQuery}`, { params: { tags: updatedTags.join(',') } })
+                .then(response => {
+                    setSearchResults(response.data.organizations || []);
+                })
+                .catch(error => console.error('Error fetching search results:', error));
         }
     };
 
-    const handleSelectCharity = (id: string) => {
-        navigate(`/charity/${id}`);
+    const handleSelectCharity = async (id: string) => {
+        try {
+            const response = await axios.get(`http://localhost:3000/organization/${id}`, { timeout: 5000 });
+            if (response.data) {
+                navigate(`/charity/${id}`, { state: { charity: response.data } });
+            } else {
+                navigate(`/charity/${id}`, { state: { charity: null } });
+            }
+        } catch (error) {
+            console.error('Error fetching charity details:', error);
+            navigate(`/charity/${id}`, { state: { charity: null } });
+        }
     };
 
     return (
         <div className="flex flex-col items-center bg-gray-100 min-h-screen">
             <Header />
 
+            {/* Motto */}
+            <p className="text-xl font-bold text-gray-700 mt-2 mb-2 text-center">
+                Your generosity, their transformation
+            </p>
+
             {/* Search Bar */}
-            <div className="mt-4 mb-8 w-2/3">
+            <div className="mt-4 mb-2 w-2/3 relative">
                 <input
                     type="text"
-                    className="w-full p-4 rounded-full border border-gray-300"
+                    className="w-full p-4 rounded-full border border-gray-300 shadow-sm"
                     placeholder="Search for charities..."
                     value={searchQuery}
                     onChange={handleSearch}
                 />
-                {searchResults.length > 0 && (
-                    <div className="bg-white shadow-md rounded mt-2">
-                        {searchResults.map((result) => (
-                            <div
-                                key={result.ein}
-                                onClick={() => handleSelectCharity(result.ein)}
-                                className="p-2 cursor-pointer hover:bg-gray-100"
-                            >
-                                {result.name}
-                            </div>
-                        ))}
-                    </div>
-                )}
             </div>
 
+            {/* Tags Scroller */}
+            <div className="flex space-x-4 mb-4 overflow-x-auto w-2/3">
+                {tags.map((tag) => (
+                    <button
+                        key={tag}
+                        onClick={() => handleTagToggle(tag)}
+                        className={`px-4 py-2 rounded-full border ${
+                            selectedTags.includes(tag) ? 'bg-blue-500 text-white' : 'bg-white text-black'
+                        }`}
+                    >
+                        {tag}
+                    </button>
+                ))}
+            </div>
+
+            {/* Search Results */}
+            {searchResults.length > 0 && (
+                <div className="w-2/3 bg-white shadow-md rounded mt-2 mb-4 max-h-60 overflow-y-auto">
+                    {searchResults.map((result) => (
+                        <div
+                            key={result.id}
+                            onClick={() => handleSelectCharity(result.id)}
+                            className="p-2 cursor-pointer transition-all duration-300 ease-in-out bg-white hover:bg-blue-100 hover:animate-bounce"
+                        >
+                            {result.name}
+                        </div>
+                    ))}
+                </div>
+            )}
             {/* Slideshow */}
             <div className="relative w-full max-w-4xl h-80 mb-8 bg-gray-200 rounded-lg overflow-hidden shadow-md">
                 <div
@@ -124,7 +167,7 @@ const Home: React.FC = () => {
                 ))}
             </div>
 
-            <footer className="w-full bg-gray-800 text-white p-4 text-center">
+            <footer className="w-full bg-gray-800 text-white p-4 text-center mt-auto">
                 <p>© 2024 CharityFinder</p>
             </footer>
         </div>

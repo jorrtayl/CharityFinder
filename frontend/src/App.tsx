@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
-import CharityDetail from './components/CharityDetail';
+import CharityDetail from './components/CharityDetails';
 import CategoryPage from './components/CategoryPage';
 
 const App: React.FC = () => {
