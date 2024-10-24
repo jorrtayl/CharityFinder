@@ -43,14 +43,19 @@ const Home: React.FC = () => {
         if (query.length >= 1) {
             axios.get(`http://localhost:3000/search/${query}`, { params: { tags: tagString } })
                 .then(response => {
-                    setSearchResults(response.data.organizations || []);
+                    // Ensure that we access the organizations array correctly
+                    if (response.data && response.data.organizations) {
+                        setSearchResults(response.data.organizations);
+                    } else {
+                        setSearchResults([]); // Clear results if none found
+                    }
                 })
                 .catch(error => console.error('Error fetching search results:', error));
         } else {
             setSearchResults([]);
         }
     };
-    
+  
     const handleTagToggle = (tag: Tag) => {
         const updatedTags = selectedTags.includes(tag)
             ? selectedTags.filter((t) => t !== tag)
@@ -74,7 +79,7 @@ const Home: React.FC = () => {
             if (response.data) {
                 navigate(`/charity/${id}`, { state: { charity: response.data } });
             } else {
-                navigate(`/charity/${id}`, { state: { charity: null } });
+                console.error('No charity details found.');
             }
         } catch (error) {
             console.error('Error fetching charity details:', error);
@@ -122,10 +127,10 @@ const Home: React.FC = () => {
                 <div className="w-2/3 bg-white shadow-md rounded mt-2 mb-4 max-h-60 overflow-y-auto">
                     {searchResults.map((result) => (
                         <div
-                            key={result.id}
-                            onClick={() => handleSelectCharity(result.id)}
+                            key={result.ein} // Use ein as a unique identifier
+                            onClick={() => handleSelectCharity(result.ein)}
                             className="p-2 cursor-pointer transition-all duration-300 ease-in-out bg-white hover:bg-blue-100 hover:animate-bounce"
-                        >
+                            >
                             {result.name}
                         </div>
                     ))}
