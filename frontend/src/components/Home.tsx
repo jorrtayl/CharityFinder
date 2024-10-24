@@ -4,7 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import redCrossSlideshow from '../images/slideshow/red_cross.png';
 import doctorsWithoutBorders from '../images/slideshow/doctors_without_borders.png';
 import worldWildlifeFund from '../images/slideshow/world_wildlife_fund.png';
+import {Tag} from '../API/types';
 import Header from './Header';
+
 
 const Home: React.FC = () => {
     const slides = [
@@ -19,12 +21,10 @@ const Home: React.FC = () => {
         { name: 'Health Charities', imageUrl: worldWildlifeFund, link: '/category/health' },
     ];
 
-    const tags = ['Children', 'Health', 'Education', 'Environment', 'Disaster Relief'];
-
     const [currentSlide, setCurrentSlide] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<any[]>([]);
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -55,12 +55,13 @@ const Home: React.FC = () => {
             setSearchResults([]);
         }
     };
-
-    const handleTagToggle = (tag: string) => {
+  
+    const handleTagToggle = (tag: Tag) => {
         const updatedTags = selectedTags.includes(tag)
             ? selectedTags.filter((t) => t !== tag)
             : [...selectedTags, tag];
         setSelectedTags(updatedTags);
+        console.log(tag)
         
         // If there is an existing search query, refetch based on tags
         if (searchQuery.length >= 1) {
@@ -108,15 +109,15 @@ const Home: React.FC = () => {
 
             {/* Tags Scroller */}
             <div className="flex space-x-4 mb-4 overflow-x-auto w-2/3">
-                {tags.map((tag) => (
+                {Object.keys(Tag).filter(key => isNaN(Number(key))).map((tagString: string, index: number) => (
                     <button
-                        key={tag}
-                        onClick={() => handleTagToggle(tag)}
+                        key={Tag[index + 1]}
+                        onClick={() => handleTagToggle(index + 1)}
                         className={`px-4 py-2 rounded-full border ${
-                            selectedTags.includes(tag) ? 'bg-blue-500 text-white' : 'bg-white text-black'
+                            selectedTags.includes(index + 1) ? 'bg-blue-500 text-white' : 'bg-white text-black'
                         }`}
                     >
-                        {tag}
+                        {tagString.replaceAll('_', " ")}
                     </button>
                 ))}
             </div>
