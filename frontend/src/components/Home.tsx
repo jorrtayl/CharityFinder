@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import redCrossSlideshow from '../images/slideshow/red_cross.png';
 import doctorsWithoutBorders from '../images/slideshow/doctors_without_borders.png';
 import worldWildlifeFund from '../images/slideshow/world_wildlife_fund.png';
-import {Tag} from '../API/types';
+import {Organization, Tag} from '../API/types';
+import OrgCard from './OrgCard';
 import Header from './Header';
 
 
@@ -25,6 +26,7 @@ const Home: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+    const [searchedOrgs, setSearchedOrgs] = useState<Organization[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -46,6 +48,13 @@ const Home: React.FC = () => {
                     // Ensure that we access the organizations array correctly
                     if (response.data && response.data.organizations) {
                         setSearchResults(response.data.organizations);
+                        let orgs = new Array<Organization>();
+                        response.data.organizations.map((org: Organization, i: Number) => {
+                            if(i < 9) {
+                                orgs.push(org);
+                            }
+                        })
+                        setSearchedOrgs(orgs)
                     } else {
                         setSearchResults([]); // Clear results if none found
                     }
@@ -162,7 +171,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Categories Section */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            {/* <div className="grid grid-cols-3 gap-4 mb-8">
                 {categories.map((category, index) => (
                     <div className="text-center" key={index}>
                         <Link to={category.link}>
@@ -171,8 +180,22 @@ const Home: React.FC = () => {
                         </Link>
                     </div>
                 ))}
-            </div>
-
+            </div> */}
+            
+            {(searchedOrgs.length === 0) ? (
+                <p>
+                    Please search some nonprofits
+                </p>
+                ) : (
+                <div className='grid grid-cols-3 gap-2 w-3/4'>
+                    {
+                        searchedOrgs.map((org) => {
+                        return (<OrgCard org={org}/>)
+                        })
+                    }
+                </div>)
+            }
+            
             <footer className="w-full bg-gray-800 text-white p-4 text-center mt-auto">
                 <p>© 2024 CharityFinder</p>
             </footer>
