@@ -2,6 +2,7 @@ import express from'express'
 import bodyParser from 'body-parser'
 import cors from 'cors';
 import axios from 'axios'
+//import pool from './database.js'
 
 const ProPublicaURL = "https://projects.propublica.org/nonprofits/api/v2/";
 
