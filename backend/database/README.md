@@ -18,8 +18,8 @@ Date: 11/3/2024
     - This is in the form of `.env` and must be included in the `backend` directory. <br/> Example: <br/> ![How the .env file should appear](./images/.env_example.png) 
     - The format of the variables in the .env files is as follows:  
         ```properties
-        MYSQL_HOST='your host address'     //typically 127.0.0.1
-        MYSQL_USER='root'                  //typically root
+        MYSQL_HOST='your_host_address'     //typically 127.0.0.1
+        MYSQL_USER='your_username'         //typically root
         MYSQL_PASSWORD='your_password'     //the password you used when setting up the mysql server
         MYSQL_DATABASE='charity_finder_db' //this is already specified for the database, so do not change it.
         ```
