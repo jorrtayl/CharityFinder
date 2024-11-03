@@ -1,8 +1,9 @@
 import mysql from 'mysql2'
 
-import dotenv from 'dotenv'
+import dotenv from 'dotenv'  //used for the .env variable file so we can configure it for each of our own machines.
 dotenv.config()
 
+// This is the database connection function
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
@@ -10,14 +11,16 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE
 }).promise()
 
+// a query function to get all the results from the charities table
 async function getCharities() {
     const [rows] = await pool.query("SELECT * FROM charities")
     return rows
 }
-
+// testing above function
 // const charities = await getCharities()
 // console.log(charities)
 
+// a query function to get a single charity by its id
 async function getCharity(charity_id){
     const [rows] = await pool.query(`
         SELECT *
@@ -26,10 +29,11 @@ async function getCharity(charity_id){
         `, [charity_id])
         return rows
 }
-
+// testing above function
 // const charity = await getCharity(1)
 // console.log(charity)
 
+// a query function to get a single charity by its ein
 async function getCharityByEin(ein){
     const [rows] = await pool.query(`
         SELECT *
@@ -38,6 +42,6 @@ async function getCharityByEin(ein){
         `, [ein])
         return rows
 }
-
-const charity = await getCharityByEin("131788491")
-console.log(charity)
+// testing above function
+// const charity = await getCharityByEin("131788491")
+// console.log(charity)
