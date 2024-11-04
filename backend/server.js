@@ -2,12 +2,14 @@ import express from'express'
 import bodyParser from 'body-parser'
 import cors from 'cors';
 import axios from 'axios'
-//import pool from './database.js'
+import db from './database.js'
+
+// console.log(await db.getCharity(1)); // test to see if query function imported successfully
 
 const ProPublicaURL = "https://projects.propublica.org/nonprofits/api/v2/";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(bodyParser.json());

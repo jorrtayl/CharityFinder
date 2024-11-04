@@ -12,7 +12,7 @@ const pool = mysql.createPool({
 }).promise()
 
 // a query function to get all the results from the charities table
-async function getCharities() {
+export async function getCharities() {
     const [rows] = await pool.query("SELECT * FROM charities")
     return rows
 }
@@ -21,7 +21,7 @@ async function getCharities() {
 // console.log(charities)
 
 // a query function to get a single charity by its id
-async function getCharity(charity_id){
+export async function getCharity(charity_id){
     const [rows] = await pool.query(`
         SELECT *
         FROM charities
@@ -34,7 +34,7 @@ async function getCharity(charity_id){
 // console.log(charity)
 
 // a query function to get a single charity by its ein
-async function getCharityByEin(ein){
+export async function getCharityByEin(ein){
     const [rows] = await pool.query(`
         SELECT *
         FROM charities
@@ -45,3 +45,15 @@ async function getCharityByEin(ein){
 // testing above function
 // const charity = await getCharityByEin("131788491")
 // console.log(charity)
+
+// creating export object
+const db = {
+    getCharities,
+    getCharity,
+    getCharityByEin
+}
+
+// exporting the db object
+export default db;
+
+
