@@ -9,7 +9,7 @@ import db from './database.js'
 const ProPublicaURL = "https://projects.propublica.org/nonprofits/api/v2/";
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
