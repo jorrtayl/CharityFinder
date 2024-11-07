@@ -4,7 +4,23 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
-  },
-  plugins: [],
+        extend: {
+            imageRendering: {
+                'crisp-edges': 'crisp-edges',
+                'pixelated': 'pixelated',
+            },
+        },
+    },
+  plugins: [
+        function ({ addUtilities }) {
+            addUtilities({
+                '.image-render-crisp': {
+                    'image-rendering': 'crisp-edges',
+                },
+                '.image-render-pixel': {
+                    'image-rendering': 'pixelated',
+                },
+            });
+        },
+    ],
 }
