@@ -7,19 +7,20 @@ import { Pressable, Image } from 'react-native';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-//import logo from './CharityFindertest.png';
+import logo from '../CharityFinder_Logo.png';
 
-/*
+
 function Logo() {
   return (
     <Image
       style={{ width: 170, height: 50, marginBottom: 8 }}
-      source={require('./CharityFindertest.png')}
+      source={require('../CharityFinder_Logo.png')}
     />
   );
 }
-*/
+
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -46,7 +47,12 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerTitle: 'Home',
+          headerTitle: () => (
+            <Image
+              style={{ width: 260, height: 60, marginBottom: 15 }}
+              source={require('../CharityFinder_Logo.png')}
+            />
+          ),
           //headerTitle: (props) => <LogoTitle/>,
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -65,9 +71,13 @@ export default function TabLayout() {
 
           /*
           headerLeft: () => (
-            <Image source={require('./CharityFinder.png')} /> 
+            <Image
+              style={{ width: 250, height: 75, marginBottom: 8 }}
+              source={require('../CharityFinder_Logo.png')}
+            />
           ),
-          */ 
+          */
+          
           
           headerStyle: {
             //backgroundColor: '#334d50',
@@ -87,6 +97,12 @@ export default function TabLayout() {
         name="Donate"
         options={{
           title: 'Donate',
+          headerTitle: () => (
+            <Image
+              style={{ width: 260, height: 60, marginBottom: 15 }}
+              source={require('../CharityFinder_Logo.png')}
+            />
+          ),
           tabBarIcon: ({ color }) => <TabBarIcon name="tag" color={color} />,
 
           headerTitleStyle: {
@@ -99,6 +115,12 @@ export default function TabLayout() {
         name="About"
         options={{
           title: 'About',
+          headerTitle: () => (
+            <Image
+              style={{ width: 260, height: 60, marginBottom: 15 }}
+              source={require('../CharityFinder_Logo.png')}
+            />
+          ),
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
 
           headerTitleStyle: {
@@ -111,7 +133,13 @@ export default function TabLayout() {
         name="Contact"
         options={{
           title: 'Contact',
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          headerTitle: () => (
+            <Image
+              style={{ width: 260, height: 60, marginBottom: 15 }}
+              source={require('../CharityFinder_Logo.png')}
+            />
+          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="envelope" color={color} />,
           
           headerTitleStyle: {
             fontSize: 20,

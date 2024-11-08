@@ -1,20 +1,22 @@
-import React, { useState, useCallback, useEffect, useMemo, FunctionComponent } from 'react';
+import React, { useState, useCallback, useMemo, FunctionComponent } from 'react';
 import { StyleSheet, FlatList, TextInput, TouchableOpacity, Pressable, Alert, Linking, Image } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-//import Colors from '@constants/Colors';
 
-// logo for testing charity cards
 const americanCancerSocietyLogo = require('./images/American_Cancer_Society_Logo.png');
+const StJudeLogo = require('./images/St.-Jude-Childrens-Research-Hospital-Logo.jpg');
+const salvationArmyLogo = require('./images/Salvation-Army-Logo.png');
+const redCrossLogo = require('./images/Red_Cross_Logo.png');
+const feedingAmericaLogo = require('./images/Feeding-America-Logo.png');
+const habitatForHumanityLogo = require('./images/Habitat-For-Humanity-Logo.png');
 
-// Charity data with avgFunding per year
-const charities = [
+const charities: Charity[] = [
   { id: '1', avgFunding: 3000000, name: 'American Cancer Society', rating: 4.5, website: 'https://donate.cancer.org/', imageUrl: americanCancerSocietyLogo, causes: ['Healthcare'] },
-  { id: '2', avgFunding: 1500000, name: 'St.Jude Childrens Research Hospital', rating: 4.0, website: 'https://www.stjude.org/donate', imageUrl: americanCancerSocietyLogo, causes: ['Children', 'Healthcare'] },
-  { id: '3', avgFunding: 1200000, name: 'Salvation Army', rating: 5.0, website: 'https://www.salvationarmyusa.org/usn/ways-to-give/', imageUrl: americanCancerSocietyLogo, causes: ['General', 'Shelter'] },
-  { id: '4', avgFunding: 2000000, name: 'American National Red Cross', rating: 4.5, website: 'https://www.redcross.org/donate', imageUrl: americanCancerSocietyLogo, causes: ['Shelter', 'Healthcare'] },
-  { id: '5', avgFunding: 950000, name: 'Feeding America', rating: 4.0, website: 'https://give.feedingamerica.org/', imageUrl: americanCancerSocietyLogo, causes: ['Hunger', 'Children'] },
-  { id: '6', avgFunding: 1000000, name: 'Habitat for Humanity International', rating: 5.0, website: 'https://secure.habitat.org/site/Donation2?df_id=4973&4973.donation=form1', imageUrl: americanCancerSocietyLogo, causes: ['Shelter'] },
+  { id: '2', avgFunding: 1500000, name: 'St.Jude Childrens Research Hospital', rating: 4.0, website: 'https://www.stjude.org/donate', imageUrl: StJudeLogo, causes: ['Children', 'Healthcare'] },
+  { id: '3', avgFunding: 1200000, name: 'Salvation Army', rating: 5.0, website: 'https://www.salvationarmyusa.org/usn/ways-to-give/', imageUrl: salvationArmyLogo, causes: ['General', 'Shelter'] },
+  { id: '4', avgFunding: 2000000, name: 'American National Red Cross', rating: 4.5, website: 'https://www.redcross.org/donate', imageUrl: redCrossLogo, causes: ['Shelter', 'Healthcare'] },
+  { id: '5', avgFunding: 950000, name: 'Feeding America', rating: 4.0, website: 'https://give.feedingamerica.org/', imageUrl: feedingAmericaLogo, causes: ['Hunger', 'Children'] },
+  { id: '6', avgFunding: 1000000, name: 'Habitat for Humanity International', rating: 5.0, website: 'https://secure.habitat.org/site/Donation2?df_id=4973&4973.donation=form1', imageUrl: habitatForHumanityLogo, causes: ['Shelter'] },
 ];
 
 type Charity = {
@@ -99,7 +101,7 @@ const DonateScreen: FunctionComponent = () => {
       <TextInput
         style={styles.searchBar}
         placeholder="Search Charities..."
-        placeholderTextColor={"#29282e"}
+        placeholderTextColor={"#b0b0b0"}
         value={searchQuery}
         onChangeText={handleSearch}
       />
@@ -135,19 +137,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#282828',
+    backgroundColor: '#1e1e1e', // Dark background to match other pages
   },
   searchBar: {
     height: 40,
     borderRadius: 20,
     paddingHorizontal: 15,
-    backgroundColor: '#bebebe',
+    backgroundColor: '#2c2c2c', // Darker background for search bar
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
     marginBottom: 20,
     fontSize: 16,
+    color: '#ffffff', // White text for better contrast
   },
   sortContainer: {
     flexDirection: 'row',
@@ -158,13 +161,13 @@ const styles = StyleSheet.create({
   sortText: {
     marginRight: 10,
     fontSize: 16,
-    color: '#bebebe',
+    color: '#b0b0b0', // Light grey for sort text
   },
   sortButton: {
     marginRight: 10,
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: '#007bff',
+    backgroundColor: '#0056b3', // Primary button color
     borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -172,17 +175,18 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   activeSortButton: {
-    backgroundColor: '#0056b3',
+    backgroundColor: '#007bff', // Lighter shade for active sort button
   },
   sortButtonText: {
-    color: '#fff',
+    color: '#fff', // White text for sort button
     fontSize: 14,
     fontWeight: '500',
   },
   charityItem: {
-    backgroundColor: '#bebebe',
+    backgroundColor: '#292929', // Match charity item background with other pages
     padding: 15,
     borderWidth: 1,
+    borderColor: '#444',
     borderRadius: 15,
     marginBottom: 10,
     shadowColor: '#000',
@@ -194,7 +198,7 @@ const styles = StyleSheet.create({
   charityContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   charityImage: {
     width: 83,
@@ -204,17 +208,17 @@ const styles = StyleSheet.create({
   },
   charityTextContainer: {
     flex: 1,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   charityText: {
     fontSize: 17,
     fontWeight: '700',
-    color: '#333',
+    color: '#ffffff', // White text for charity name
   },
   starContainer: {
     flexDirection: 'row',
     marginTop: 5,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
 });
 

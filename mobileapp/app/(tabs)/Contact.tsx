@@ -4,7 +4,6 @@ import { Text } from '@/components/Themed';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { LinearGradient } from 'expo-linear-gradient';
 
-
 // Social Media Links (optional)
 const socialMediaLinks = [
   { name: 'facebook', url: 'https://facebook.com' },
@@ -33,20 +32,14 @@ const ContactPage = () => {
   };
 
   return (
-    <LinearGradient
-      colors={['#F0F0F0', '#E9E9E9']}
-      style={styles.container}
-      start={{ x: 0.0, y: 0.0 }}
-      end={{ x: .0, y: 1.0 }}
-    >
-      <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+      <ScrollView style={styles.container}>
         <Text style={styles.headerText}>Contact Us</Text>
 
         {/* Name Input */}
         <TextInput
           style={styles.input}
           placeholder="Name"
-          placeholderTextColor="#666"
+          placeholderTextColor="#b0b0b0"
           value={name}
           onChangeText={setName}
         />
@@ -55,7 +48,7 @@ const ContactPage = () => {
         <TextInput
           style={styles.input}
           placeholder="Email"
-          placeholderTextColor="#666"
+          placeholderTextColor="#b0b0b0"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -65,7 +58,7 @@ const ContactPage = () => {
         <TextInput
           style={[styles.input, styles.textArea]}
           placeholder="Your message"
-          placeholderTextColor="#666"
+          placeholderTextColor="#b0b0b0"
           value={message}
           onChangeText={setMessage}
           multiline
@@ -86,7 +79,6 @@ const ContactPage = () => {
           ))}
         </View>
       </ScrollView>
-    </LinearGradient>
   );
 };
 
@@ -94,24 +86,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#1e1e1e',
+    //backgroundColor: '#121212',
   },
   headerText: {
     fontSize: 28,
     fontWeight: '600',
     marginBottom: 20,
     textAlign: 'center',
-    color: '#29282e',
+    color: '#ffffff',
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: '#2a2a2a',
     borderRadius: 15,
     paddingHorizontal: 20,
     paddingVertical: 12,
     marginBottom: 15,
-    borderColor: '#ddd',
+    borderColor: '#444',
     borderWidth: 1,
     fontSize: 16,
-    color: '#333',
+    color: '#ffffff',
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 5,
