@@ -10,6 +10,12 @@ const cardMargin = 10;
 const snapInterval = cardWidth + cardMargin * 2;
 
 const americanCancerSocietyLogo = require('./images/American_Cancer_Society_Logo.png');
+const StJudeLogo = require('./images/St.-Jude-Childrens-Research-Hospital-Logo.jpg');
+const salvationArmyLogo = require('./images/Salvation-Army-Logo.png');
+const redCrossLogo = require('./images/Red_Cross_Logo.png');
+const feedingAmericaLogo = require('./images/Feeding-America-Logo.png');
+const habitatForHumanityLogo = require('./images/Habitat-For-Humanity-Logo.png');
+
 
 type Charity = {
   id: string;
@@ -23,11 +29,11 @@ type Charity = {
 
 const charities: Charity[] = [
   { id: '1', avgFunding: 3000000, name: 'American Cancer Society', rating: 4.5, website: 'https://donate.cancer.org/', imageUrl: americanCancerSocietyLogo, causes: ['Healthcare'] },
-  { id: '2', avgFunding: 1500000, name: 'St.Jude Childrens Research Hospital', rating: 4.0, website: 'https://www.stjude.org/donate', imageUrl: americanCancerSocietyLogo, causes: ['Children', 'Healthcare'] },
-  { id: '3', avgFunding: 1200000, name: 'Salvation Army', rating: 5.0, website: 'https://www.salvationarmyusa.org/usn/ways-to-give/', imageUrl: americanCancerSocietyLogo, causes: ['General', 'Shelter'] },
-  { id: '4', avgFunding: 2000000, name: 'American National Red Cross', rating: 4.5, website: 'https://www.redcross.org/donate', imageUrl: americanCancerSocietyLogo, causes: ['Shelter', 'Healthcare'] },
-  { id: '5', avgFunding: 950000, name: 'Feeding America', rating: 4.0, website: 'https://give.feedingamerica.org/', imageUrl: americanCancerSocietyLogo, causes: ['Hunger', 'Children'] },
-  { id: '6', avgFunding: 1000000, name: 'Habitat for Humanity International', rating: 5.0, website: 'https://secure.habitat.org/site/Donation2?df_id=4973&4973.donation=form1', imageUrl: americanCancerSocietyLogo, causes: ['Shelter'] },
+  { id: '2', avgFunding: 1500000, name: 'St.Jude Childrens Research Hospital', rating: 4.0, website: 'https://www.stjude.org/donate', imageUrl: StJudeLogo, causes: ['Children', 'Healthcare'] },
+  { id: '3', avgFunding: 1200000, name: 'Salvation Army', rating: 5.0, website: 'https://www.salvationarmyusa.org/usn/ways-to-give/', imageUrl: salvationArmyLogo, causes: ['General', 'Shelter'] },
+  { id: '4', avgFunding: 2000000, name: 'American National Red Cross', rating: 4.5, website: 'https://www.redcross.org/donate', imageUrl: redCrossLogo, causes: ['Shelter', 'Healthcare'] },
+  { id: '5', avgFunding: 950000, name: 'Feeding America', rating: 4.0, website: 'https://give.feedingamerica.org/', imageUrl: feedingAmericaLogo, causes: ['Hunger', 'Children'] },
+  { id: '6', avgFunding: 1000000, name: 'Habitat for Humanity International', rating: 5.0, website: 'https://secure.habitat.org/site/Donation2?df_id=4973&4973.donation=form1', imageUrl: habitatForHumanityLogo, causes: ['Shelter'] },
 ];
 
 const HomeScreen = () => {
@@ -110,28 +116,31 @@ const HomeScreen = () => {
   );
 
   return (
-    <LinearGradient
-      colors={['#F0F0F0', '#E9E9E9']}
-      style={[styles.container, { height: screenHeight, width: screenWidth }]}
-      start={{ x: 0.0, y: 0.0 }}
-      end={{ x: 0.0, y: 1.0 }}
-    >
-      <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-        <View style={styles.logo_container}>
-          <Image source={require('./CharityFindertest.png')} style={styles.logo} />
-        </View>
+    
+      <ScrollView style={styles.container}>
+        
 
         <View style={styles.introContainer}>
-          <Text style={styles.mainBodyText}>
-            Here at CharityFinder, we want to take the guesswork out of finding the right charity for you.
-          </Text>
-          <Text style={styles.mainBodyText2}>Looking for a certain type of charity?</Text>
-          <Text style={styles.mainBodyText3}>We've got you covered.</Text>
-          <Text style={styles.mainBodyText2}>Looking to help a low-funded charity?</Text>
-          <Text style={styles.mainBodyText3}>We've got you covered.</Text>
-          <Text style={styles.mainBodyText2}>We have everything you need to direct you to the right place.</Text>
-          <Text style={styles.mainBodyText2}>So come explore our app and find your charity today with CharityFinder!</Text>
+          <LinearGradient
+            colors={['#1e1e1e', '#1e1e1e']}
+            style={styles.gradientBackground}
+          >
+            <Text style={styles.introHeading}>Welcome to 
+              <Image
+              style={{ width: 165, height: 20, marginBottom: 0, marginLeft: -20, }}
+              source={require('./images/Plain_Logo.png')}
+              />
+            </Text>
+
+            <Text style={styles.mainBodyText}>
+              Encouraging the world to make educated donations towards trusted charities.
+            </Text>
+            <Pressable style={styles.callToActionButton} onPress={() => { /* Navigate or show modal */ }}>
+              <Text style={styles.callToActionText}>Get Started</Text>
+            </Pressable>
+          </LinearGradient>
         </View>
+
 
         <View style={styles.charityContainer}>
           <Text style={styles.charityHeading}>Top 10 Least Funded Charities</Text>
@@ -154,13 +163,14 @@ const HomeScreen = () => {
           <CauseSection key={cause} cause={cause} charities={charities} />
         ))}
       </ScrollView>
-    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#1e1e1e',
+    paddingBottom: 20,
   },
   logo_container: {
     marginTop: 10,
@@ -170,7 +180,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   logo: {
-    width: 260,
+    width: 400,
     height: 75,
     justifyContent: 'center',
     alignItems: 'center',
@@ -178,52 +188,74 @@ const styles = StyleSheet.create({
   introContainer: {
     backgroundColor: 'transparent',
     marginBottom: 30,
-    marginLeft: 30,
-    marginRight: 30,
+    marginHorizontal: 10,
   },
+  introHeading: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+  gradientBackground: {
+    padding: 20,
+    borderRadius: 15,
+  },
+  callToActionButton: {
+    backgroundColor: '#1E9BD9',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 20,
+    alignSelf: 'center',
+  },
+  callToActionText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#1e1e1e',
+    textAlign: 'center',
+  },
+  
   mainBodyText: {
-    fontSize: 20,
-    color: "#29282e",
+    fontSize: 18,
+    color: "#ffffff", // Updated to white for better contrast
     textAlign: "center",
+    lineHeight: 26,
   },
   mainBodyText2: {
     marginTop: 10,
-    fontSize: 20,
-    color: "#29282e",
+    fontSize: 18,
+    color: "#ffffff", // Updated to white for better contrast
     textAlign: "center",
+    lineHeight: 26,
   },
   mainBodyText3: {
     marginTop: 1,
-    fontSize: 20,
-    color: "#29282e",
+    fontSize: 18,
+    color: "#ffffff", // Updated to white for better contrast
     textAlign: "center",
-  },
-  heading: {
-    fontSize: 28,
-    fontWeight: '600',
-    marginVertical: 20,
-    color: "#29282e",
+    lineHeight: 26,
   },
   charityContainer: {
-    backgroundColor: '#E5E5E6',
+    backgroundColor: '#171717', // Match with other pages
     borderWidth: 0.5,
-    borderColor: '#dcdcdc',
+    borderColor: '#444', // Light border for visibility
     marginBottom: 20,
     borderRadius: 10,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  charityList: {
-    marginTop: 10,
-  },
   charityHeading: {
     fontSize: 25,
     fontWeight: '600',
     marginVertical: 20,
-    color: "#29282e",
+    color: "#ffffff", // Updated to white for better contrast
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  charityList: {
+    marginTop: 10,
   },
   flatListContent: {
     paddingLeft: 10,
@@ -231,8 +263,10 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   charityItem: {
-    backgroundColor: '#fff',
+    backgroundColor: '#2c2c2c', // Match card background with other pages
     padding: 15,
+    borderWidth: 1,
+    borderColor: '#444',
     borderRadius: 15,
     width: cardWidth,
     alignItems: 'center',
@@ -242,7 +276,6 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         shadowOffset: { width: 3, height: 5 },
-        shadowColor: '#333',
         shadowOpacity: 0.7,
         shadowRadius: 2,
       },
@@ -253,18 +286,19 @@ const styles = StyleSheet.create({
   },
   charityContent: {
     alignItems: 'center',
-    backgroundColor: '#fff',
     justifyContent: 'center',
+    backgroundColor: 'transparent',
   },
   charityImage: {
     width: 225,
     height: 125,
     marginBottom: 10,
     borderRadius: 10,
+    //backgroundColor: 'transparent',
   },
   charityText: {
-    fontSize: 20,
-    color: '#333',
+    fontSize: 18,
+    color: '#ffffff', // Updated to white for better contrast
     fontWeight: '700',
     textAlign: 'center',
   },
