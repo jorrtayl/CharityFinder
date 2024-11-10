@@ -28,7 +28,7 @@ const About: React.FC = () => {
             name: 'Jordan Taylor',
             role: 'Frontend Developer',
             image: jordanImage,
-            description: 'Jordan is the frontend developer and team coordinator, ensuring the interface is easy to use and looks appealing.',
+            description: 'Jordan is the frontend developer, ensuring the interface is easy to use and looks appealing.',
             email: 'jordanrtayl@gmail.com',
             github: 'https://github.com/jorrtayl'
         },
@@ -36,9 +36,9 @@ const About: React.FC = () => {
             name: 'Zach Coomer',
             role: 'Database Developer',
             image: zachImage,
-            description: 'Zach specializes in database management, storing valuable data efficiently.',
-            email: 'zach@example.com',
-            github: 'https://github.com/zach'
+            description: 'Zach works in database development, working with backend and frontend to integrate database systems.',
+            email: 'zaccoom@ut.utm.edu',
+            github: 'https://github.com/EdwardCoom'
         },
         {
             name: 'Daniel Cunningham',
