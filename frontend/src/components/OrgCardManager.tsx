@@ -10,6 +10,7 @@ const OrgCardManager: React.FC<OrgCardManagerProps> = (props: OrgCardManagerProp
     let searchedOrgs = props.orgs;
     const [selectedOrg, setSelectedOrg] = useState<Organization | undefined>(undefined);
     const [selectedFiling, setSelectedFiling] = useState<Filing>({} as Filing);
+    
     useEffect(() => {
         if(selectedOrg !== undefined) {
             financialData(selectedOrg.ein).then((data) => {

@@ -8,7 +8,7 @@ import {Organization, Tag} from '../API/types';
 import OrgCard from './OrgCard';
 import Header from './Header';
 import OrgCardManager from './OrgCardManager';
-import { searchByName } from '../API/search';
+import { searchByName, searchByNameAndGroup } from '../API/search';
 
 // Main Home component for the CharityFinder application
 const Home: React.FC = () => {
@@ -29,25 +29,12 @@ const Home: React.FC = () => {
     const [searchResults, setSearchResults] = useState<any[]>([]);
 
     // State to store selected tags for filtering search results
-    const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+    const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
     const [searchedOrgs, setSearchedOrgs] = useState<Organization[]>([]);
     const navigate = useNavigate();
 
-    // useEffect hook to handle automatic slideshow change every 5 seconds
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentSlide((currentSlideIndex) => (currentSlideIndex + 1) % slides.length);
-        }, 5000);
-
-        // Cleanup timer on component unmount
-        return () => clearInterval(timer);
-    }, [slides.length]);
-
-    // Function to handle search input changes and fetch search results
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const query = e.target.value;
-        setSearchQuery(query);
-        if (query.length >= 1) {
+    const searchCurrent = () => {
+        if(selectedTag === null) {
             searchByName(searchQuery)
                 .then(response => {
                     // Check if response data contains organizations
@@ -59,25 +46,50 @@ const Home: React.FC = () => {
                 })
                 .catch(error => console.error('Error fetching search results:', error));
         } else {
-            setSearchResults([]); // Clear results if query is empty
+            searchByNameAndGroup(searchQuery, selectedTag)
+                .then(response => {
+                    // Check if response data contains organizations
+                    if (response.length > 0) {
+                        setSearchedOrgs(response)
+                    } else {
+                        setSearchResults([]); // Clear results if none found
+                    }
+                })
+                .catch(error => console.error('Error fetching search results:', error));
         }
+    }
+
+    // useEffect hook to handle automatic slideshow change every 5 seconds
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((currentSlideIndex) => (currentSlideIndex + 1) % slides.length);
+        }, 5000);
+
+        // Cleanup timer on component unmount
+        return () => clearInterval(timer);
+    }, [slides.length]);
+
+    // Search when query or tag is changed
+    useEffect(() => {
+        if(searchQuery.length >= 1) {
+            searchCurrent()
+        }
+    }, [searchQuery, selectedTag])
+
+    // Function to handle search input changes and fetch search results
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const query = e.target.value;
+        setSearchQuery(query);
     };
   
     // Function to toggle selection of a tag and refetch results based on updated tags
     const handleTagToggle = (tag: Tag) => {
         // Update selected tags based on whether the tag is already selected
-        const updatedTags = selectedTags.includes(tag)
-            ? selectedTags.filter((t) => t !== tag)
-            : [...selectedTags, tag];
-        setSelectedTags(updatedTags);
-
-        // If there's an active search query, refetch results with updated tags
-        if (searchQuery.length >= 1) {
-            axios.get(`http://localhost:3000/search/${searchQuery}`, { params: { tags: updatedTags.join(',') } })
-                .then(response => {
-                    setSearchResults(response.data.organizations || []);
-                })
-                .catch(error => console.error('Error fetching search results:', error));
+        if(tag === selectedTag) {
+            setSelectedTag(null)
+        }
+        else {
+            setSelectedTag(tag);
         }
     };
 
@@ -121,7 +133,7 @@ const Home: React.FC = () => {
                         key={Tag[index + 1]}
                         onClick={() => handleTagToggle(index + 1)}
                         className={`px-4 py-2 rounded-full border ${
-                            selectedTags.includes(index + 1) ? 'bg-blue-500 text-white' : 'bg-white text-black'
+                            (index + 1 === selectedTag) ? 'bg-blue-500 text-white' : 'bg-white text-black'
                         }`}
                     >
                         {tagString.replaceAll('_', " ")}
