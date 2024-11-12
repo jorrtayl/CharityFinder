@@ -173,18 +173,6 @@ const Home: React.FC = () => {
                     <button className="text-4xl text-gray-700 font-bold">{">"}</button>
                 </div>
             </div>
-
-            {/* Categories Section */}
-            {/* <div className="grid grid-cols-3 gap-4 mb-8">
-                {categories.map((category, index) => (
-                    <div className="text-center" key={index}>
-                        <Link to={category.link}>
-                            <img src={category.imageUrl} alt={category.name} className="w-full h-32 object-cover rounded-lg mb-4" />
-                            <h3 className="text-lg font-semibold">{category.name}</h3>
-                        </Link>
-                    </div>
-                ))}
-            </div> */}
             
             <OrgCardManager orgs={searchedOrgs}/>
             
