@@ -1,7 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const axios = require('axios');
+import express from'express'
+import bodyParser from 'body-parser'
+import cors from 'cors';
+import axios from 'axios'
+import db from './database.js'
+
+// console.log(await db.getCharity(1)); // test to see if query function imported successfully
 
 const ProPublicaURL = "https://projects.propublica.org/nonprofits/api/v2/";
 
