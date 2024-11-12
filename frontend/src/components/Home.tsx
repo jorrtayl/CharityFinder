@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import redCrossSlideshow from '../images/slideshow/red_cross.png';
 import doctorsWithoutBorders from '../images/slideshow/doctors_without_borders.png';
 import worldWildlifeFund from '../images/slideshow/world_wildlife_fund.png';
-import { Tag } from '../API/types';
+import {Organization, Tag} from '../API/types';
+import OrgCard from './OrgCard';
 import Header from './Header';
+import OrgCardManager from './OrgCardManager';
 
 // Main Home component for the CharityFinder application
 const Home: React.FC = () => {
@@ -27,8 +29,7 @@ const Home: React.FC = () => {
 
     // State to store selected tags for filtering search results
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
-
-    // useNavigate hook for navigation
+    const [searchedOrgs, setSearchedOrgs] = useState<Organization[]>([]);
     const navigate = useNavigate();
 
     // useEffect hook to handle automatic slideshow change every 5 seconds
@@ -54,6 +55,13 @@ const Home: React.FC = () => {
                     // Check if response data contains organizations
                     if (response.data && response.data.organizations) {
                         setSearchResults(response.data.organizations);
+                        let orgs = new Array<Organization>();
+                        response.data.organizations.map((org: Organization, i: number) => {
+                            if(i < 9) {
+                                orgs.push(org);
+                            }
+                        })
+                        setSearchedOrgs(orgs)
                     } else {
                         setSearchResults([]); // Clear results if none found
                     }
@@ -115,7 +123,8 @@ const Home: React.FC = () => {
                 />
             </div>
 
-            <div className="flex space-x-4 mb-4 overflow-x-auto w-2/3">
+            {/* Tags Scroller */}
+            <div className="flex justify-center space-x-4 mb-4 overflow-x-auto w-2/3">
                 {Object.keys(Tag).filter(key => isNaN(Number(key))).map((tagString: string, index: number) => (
                     <button
                         key={Tag[index + 1]}
@@ -165,6 +174,20 @@ const Home: React.FC = () => {
                 </div>
             </div>
 
+            {/* Categories Section */}
+            {/* <div className="grid grid-cols-3 gap-4 mb-8">
+                {categories.map((category, index) => (
+                    <div className="text-center" key={index}>
+                        <Link to={category.link}>
+                            <img src={category.imageUrl} alt={category.name} className="w-full h-32 object-cover rounded-lg mb-4" />
+                            <h3 className="text-lg font-semibold">{category.name}</h3>
+                        </Link>
+                    </div>
+                ))}
+            </div> */}
+            
+            <OrgCardManager orgs={searchedOrgs}/>
+            
             <footer className="w-full bg-gray-800 text-white p-4 text-center mt-auto">
                 <p>© 2024 CharityFinder</p>
             </footer>
