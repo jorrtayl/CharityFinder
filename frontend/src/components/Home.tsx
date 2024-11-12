@@ -8,6 +8,7 @@ import {Organization, Tag} from '../API/types';
 import OrgCard from './OrgCard';
 import Header from './Header';
 import OrgCardManager from './OrgCardManager';
+import { searchByName } from '../API/search';
 
 // Main Home component for the CharityFinder application
 const Home: React.FC = () => {
@@ -46,22 +47,12 @@ const Home: React.FC = () => {
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value;
         setSearchQuery(query);
-
-        // Join selected tags into a string format for API request
-        const tagString = selectedTags.join(',');
         if (query.length >= 1) {
-            axios.get(`http://localhost:3000/search/${query}`, { params: { tags: tagString } })
+            searchByName(searchQuery)
                 .then(response => {
                     // Check if response data contains organizations
-                    if (response.data && response.data.organizations) {
-                        setSearchResults(response.data.organizations);
-                        let orgs = new Array<Organization>();
-                        response.data.organizations.map((org: Organization, i: number) => {
-                            if(i < 9) {
-                                orgs.push(org);
-                            }
-                        })
-                        setSearchedOrgs(orgs)
+                    if (response.length > 0) {
+                        setSearchedOrgs(response)
                     } else {
                         setSearchResults([]); // Clear results if none found
                     }
@@ -173,18 +164,6 @@ const Home: React.FC = () => {
                     <button className="text-4xl text-gray-700 font-bold">{">"}</button>
                 </div>
             </div>
-
-            {/* Categories Section */}
-            {/* <div className="grid grid-cols-3 gap-4 mb-8">
-                {categories.map((category, index) => (
-                    <div className="text-center" key={index}>
-                        <Link to={category.link}>
-                            <img src={category.imageUrl} alt={category.name} className="w-full h-32 object-cover rounded-lg mb-4" />
-                            <h3 className="text-lg font-semibold">{category.name}</h3>
-                        </Link>
-                    </div>
-                ))}
-            </div> */}
             
             <OrgCardManager orgs={searchedOrgs}/>
             
