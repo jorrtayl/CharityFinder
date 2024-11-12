@@ -7,6 +7,7 @@ import worldWildlifeFund from '../images/slideshow/world_wildlife_fund.png';
 import {Organization, Tag} from '../API/types';
 import OrgCard from './OrgCard';
 import Header from './Header';
+import OrgCardManager from './OrgCardManager';
 
 
 const Home: React.FC = () => {
@@ -49,7 +50,7 @@ const Home: React.FC = () => {
                     if (response.data && response.data.organizations) {
                         setSearchResults(response.data.organizations);
                         let orgs = new Array<Organization>();
-                        response.data.organizations.map((org: Organization, i: Number) => {
+                        response.data.organizations.map((org: Organization, i: number) => {
                             if(i < 9) {
                                 orgs.push(org);
                             }
@@ -117,7 +118,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Tags Scroller */}
-            <div className="flex space-x-4 mb-4 overflow-x-auto w-2/3">
+            <div className="flex justify-center space-x-4 mb-4 overflow-x-auto w-2/3">
                 {Object.keys(Tag).filter(key => isNaN(Number(key))).map((tagString: string, index: number) => (
                     <button
                         key={Tag[index + 1]}
@@ -182,19 +183,7 @@ const Home: React.FC = () => {
                 ))}
             </div> */}
             
-            {(searchedOrgs.length === 0) ? (
-                <p>
-                    Please search some nonprofits
-                </p>
-                ) : (
-                <div className='grid grid-cols-3 gap-2 w-3/4'>
-                    {
-                        searchedOrgs.map((org) => {
-                        return (<OrgCard org={org}/>)
-                        })
-                    }
-                </div>)
-            }
+            <OrgCardManager orgs={searchedOrgs}/>
             
             <footer className="w-full bg-gray-800 text-white p-4 text-center mt-auto">
                 <p>© 2024 CharityFinder</p>

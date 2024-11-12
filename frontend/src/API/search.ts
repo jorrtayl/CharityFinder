@@ -78,21 +78,21 @@ export function keywordSearch(tag: Tag, amount: number): Promise<Organization[]>
 }
 
 function orgJSON_to_orgOBJ(src: any, dest: Organization) {
-    dest.ein = src.ein;
+    dest.ein = src.ein
     dest.strein = src.strein;
     dest.name = src.name;
-    dest.sub_name = src.sub_name;
-    dest.ntee_code = src.ntee_code;
-    dest.guidestar_url = src.guidestar_url;
-    dest.nccs_url = src.nccs_url;
-    dest.updated = src.updated;
+    dest.sub_name = ((src.sub_name !== undefined) ? (src.sub_name) : undefined);
+    dest.ntee_code = ((src.ntee_code !== 10) ? (src.ntee_code) : undefined);
+    dest.guidestar_url = ((src.guidestar_url !== undefined) ? (src.guidestar_url) : undefined);
+    dest.nccs_url = ((src.nccs_url !== undefined) ? (src.nccs_url) : undefined);
+    dest.updated = ((src.updated !== undefined) ? (src.updated) : undefined);
 }
 
 function filingJSON_to_filingOBJ(src: any, dest: Filing) {
-    dest.totrevenue = src.totrevenue;
-    dest.totfuncexpns = src.totfuncexpns;
-    dest.totassetsend = src.totassetsend;
-    dest.totliabend = src.totliabend;
-    dest.pct_compnsatncurrofcr = src.pct_compnsatncurrofcr;
-    dest.pdf_url = src.pdf_url;
+    dest.totrevenue = ((src.totrevenue !== undefined) ? (src.totrevenue) : (undefined));
+    dest.totfuncexpns = ((src.totfuncexpns !== undefined) ? (src.totfuncexpns) : (undefined));
+    dest.totassetsend = ((src.totassetsend !== undefined) ? (src.totassetsend) : (undefined));
+    dest.totliabend = ((src.totliabend !== undefined) ? (src.totliabend) : (undefined));
+    dest.pct_compnsatncurrofcr = ((src.pct_compnsatncurrofcr !== undefined) ? (src.pct_compnsatncurrofcr) : (undefined));
+    dest.pdf_url = ((src.pdf_url !== undefined) ? (src.pdf_url) : (undefined));
 }
