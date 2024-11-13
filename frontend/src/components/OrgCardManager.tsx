@@ -19,7 +19,7 @@ const OrgCardManager: React.FC<OrgCardManagerProps> = (props: OrgCardManagerProp
     }, [selectedOrg])
 
     return (
-        (selectedOrg === undefined ? (<div className='w-3/4 text-center'>
+        (selectedOrg === undefined ? (<div className='flex justify-center w-3/4 text-center'>
             {
                 (searchedOrgs.length === 0) ? (
                     <p>
