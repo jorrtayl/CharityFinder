@@ -23,9 +23,7 @@ const OrgCardManager: React.FC<OrgCardManagerProps> = (props: OrgCardManagerProp
         (selectedOrg === undefined ? (<div className='w-3/4 text-center'>
             {
                 (searchedOrgs.length === 0) ? (
-                    <p>
-                        Please search some nonprofits
-                    </p>
+                    null
                 ) : (
                     <div className='grid grid-cols-3 gap-2 w-fit'>
                     {
