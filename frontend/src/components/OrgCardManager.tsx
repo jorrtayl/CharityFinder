@@ -20,7 +20,7 @@ const OrgCardManager: React.FC<OrgCardManagerProps> = (props: OrgCardManagerProp
     }, [selectedOrg])
 
     return (
-        (selectedOrg === undefined ? (<div className='w-3/4 text-center'>
+        (selectedOrg === undefined ? (<div className='flex justify-center w-3/4 text-center'>
             {
                 (searchedOrgs.length === 0) ? (
                     null
@@ -28,7 +28,7 @@ const OrgCardManager: React.FC<OrgCardManagerProps> = (props: OrgCardManagerProp
                     <div className='grid grid-cols-3 gap-2 w-fit'>
                     {
                         searchedOrgs.map((org) => {
-                            return (<OrgCard org={org} selectOrgCallback={setSelectedOrg}/>)
+                            return (<OrgCard key={org.ein} org={org} selectOrgCallback={setSelectedOrg}/>) //added key to remove "Warning: Each child in a list should have a unique "key" prop."
                         })
                     }
                     </div>
