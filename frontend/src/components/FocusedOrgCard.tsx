@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Filing, Organization } from "../API/types"
+import RatingReview from './Rating'
 
 type FocusedOrgCardProps = {org: Organization, filing: Filing, selectOrgCallback: Function}
 
+
+
 const FocusedOrgCard: React.FC<FocusedOrgCardProps> = (props: FocusedOrgCardProps) => {
+    const [rating] = useState<number>(scoreToStars(0))
+    // console.log(rating) // way to test rating
+
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="relative bg-white rounded-xl w-full sm:w-3/4 md:w-1/2 lg:w-1/3 max-h-screen overflow-y-auto p-8 shadow-lg">
@@ -15,6 +21,7 @@ const FocusedOrgCard: React.FC<FocusedOrgCardProps> = (props: FocusedOrgCardProp
                 </button>
                 <h3 className="text-2xl font-bold mb-4">{props.org.name}</h3>
                 <p className="text-lg">{props.filing.totassetsend}</p>
+                <RatingReview rating={rating}/>
                 
             </div>
         </div>
@@ -26,6 +33,12 @@ const FocusedOrgCard: React.FC<FocusedOrgCardProps> = (props: FocusedOrgCardProp
         //     <p>{props.filing.totassetsend}</p>
         // </div>
     )
+}
+
+// takes the score from Propublica and updates the star rating
+function scoreToStars(score: number): number {
+    const clampedScore = Math.max(0, Math.min(100, score));
+    return (clampedScore / 100) * 5;
 }
 
 export default FocusedOrgCard;
