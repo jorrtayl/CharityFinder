@@ -3,14 +3,14 @@ export enum Tag {
     Education,
     Environment,
     Health,
-    HumanServices,
+    Human_Services,
     International,
     Society,
     Religion,
 };
 
 export interface Organization {
-    ein: Number,
+    ein: number,
     strein: String,
     name: String,
     sub_name: String,
@@ -26,10 +26,10 @@ export interface Organization {
 }
 
 export interface Filing {
-    totrevenue: Number,
-    totfuncexpns: Number,
-    totassetsend: Number,
-    totliabend: Number,
-    pct_compnsatncurrofcr: Number,
+    totrevenue: number,
+    totfuncexpns: number,
+    totassetsend: number,
+    totliabend: number,
+    pct_compnsatncurrofcr: number,
     pdf_url: String,
 }
