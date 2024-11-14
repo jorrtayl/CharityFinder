@@ -1,7 +1,32 @@
 import axios from 'axios'
-import { ProPublicaURL } from './constants.js';
+import { ProPublicaURL, EveryURL, api_key } from './constants.js';
 import { orgs_to_OrgArray, pick_random_orgs, filing_to_FilingObj} from './util.js';
 
+
+export const everySearch = async (req, res) => { 
+    const ein = req.params["ein"];
+    try {
+        const response = await axios.get(`${EveryURL}nonprofit/${ein}?apiKey=${api_key}`);
+        const data = JSON.parse(JSON.stringify(response.data.data));
+        if (data) {
+            let org = {}
+            if(data.nonprofit.logoCloudinaryId !== null) {
+                org.logoUrl = data.nonprofit.logoUrl
+            }
+            org.description = data.nonprofit.description
+
+            if(data.nonprofit.descriptionLong !== null) {
+                org.descriptionLong = data.nonprofit.descriptionLong
+            }
+            res.json(org);
+        } else {
+            res.status(404).json({});
+        }
+    } catch (err) {
+        console.error('Error fetching organization details:', err.message);
+        res.status(500).json({ error: 'An error occurred while fetching organization details.' });
+    }
+}
 
 export const nameSearch = async (req, res) => {
     const name = req.params["name"];

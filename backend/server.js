@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors';
 import axios from 'axios'
-import { nameSearch, nameGroupSearch, orgSearch, groupSearch } from './routes.js';
+import { nameSearch, nameGroupSearch, orgSearch, groupSearch, everySearch } from './routes.js';
 import db from './database.js'
 
 // console.log(await db.getCharity(1)); // test to see if query function imported successfully
@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+app.get('/descriptors/:ein', everySearch)
 
 // Route to search charities by name
 app.get('/search/:name', nameSearch);

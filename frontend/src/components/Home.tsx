@@ -9,6 +9,7 @@ import OrgCard from './OrgCard';
 import Header from './Header';
 import OrgCardManager from './OrgCardManager';
 import { searchByName, searchByNameAndGroup } from '../API/search';
+import { getDecorators } from 'typescript';
 
 // Main Home component for the CharityFinder application
 const Home: React.FC = () => {
